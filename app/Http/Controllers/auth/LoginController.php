@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         if (!Auth::attempt($credentials)) {
             return back()->withErrors([
-                'message' => 'Email or Password is Wrong !'
+                'message' => 'User or Password is Wrong !'
             ]);
         }
         return redirect()->route('home.index');
