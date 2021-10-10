@@ -1,9 +1,18 @@
-@extends('layouts.app')
-
-@section('bar_title')
+@extends("layouts.superAdmin")
+@section('page_title')
 لوحة التحكم
 @endsection
+@section('breadcrumb')
 
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
+    <li class="breadcrumb-item">
+        <a href="/" class="text-muted">الرئيسية</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="" class="text-muted"> لوحة التحكم </a>
+    </li>
+</ul>
+@endsection
 @section('sub-header')
 <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
     <!--begin::Info-->
@@ -68,32 +77,30 @@
             <div class="row">
                 <div class="col-lg-4">
                     <!--begin::Stats Widget 18-->
-                    <a href="" class="card card-custom bg-success bg-hover-state-success card-stretch gutter-b">
+                    <a href="{{ route('projects') }}"
+                        class="card card-custom bg-success bg-hover-state-success card-stretch gutter-b">
                         <!--begin::Body-->
                         <div class="card-body">
                             <span class="svg-icon svg-icon-white svg-icon-3x ml-n1">
                                 <!--begin::Svg Icon | path:/metronic/theme/html/demo13/dist/assets/media/svg/icons/Media/Equalizer.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                    <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Devices/Server.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24" />
-                                            <path
-                                                d="M5,2 L19,2 C20.1045695,2 21,2.8954305 21,4 L21,6 C21,7.1045695 20.1045695,8 19,8 L5,8 C3.8954305,8 3,7.1045695 3,6 L3,4 C3,2.8954305 3.8954305,2 5,2 Z M11,4 C10.4477153,4 10,4.44771525 10,5 C10,5.55228475 10.4477153,6 11,6 L16,6 C16.5522847,6 17,5.55228475 17,5 C17,4.44771525 16.5522847,4 16,4 L11,4 Z M7,6 C7.55228475,6 8,5.55228475 8,5 C8,4.44771525 7.55228475,4 7,4 C6.44771525,4 6,4.44771525 6,5 C6,5.55228475 6.44771525,6 7,6 Z"
-                                                fill="#000000" opacity="0.3" />
-                                            <path
-                                                d="M5,9 L19,9 C20.1045695,9 21,9.8954305 21,11 L21,13 C21,14.1045695 20.1045695,15 19,15 L5,15 C3.8954305,15 3,14.1045695 3,13 L3,11 C3,9.8954305 3.8954305,9 5,9 Z M11,11 C10.4477153,11 10,11.4477153 10,12 C10,12.5522847 10.4477153,13 11,13 L16,13 C16.5522847,13 17,12.5522847 17,12 C17,11.4477153 16.5522847,11 16,11 L11,11 Z M7,13 C7.55228475,13 8,12.5522847 8,12 C8,11.4477153 7.55228475,11 7,11 C6.44771525,11 6,11.4477153 6,12 C6,12.5522847 6.44771525,13 7,13 Z"
-                                                fill="#000000" />
-                                            <path
-                                                d="M5,16 L19,16 C20.1045695,16 21,16.8954305 21,18 L21,20 C21,21.1045695 20.1045695,22 19,22 L5,22 C3.8954305,22 3,21.1045695 3,20 L3,18 C3,16.8954305 3.8954305,16 5,16 Z M11,18 C10.4477153,18 10,18.4477153 10,19 C10,19.5522847 10.4477153,20 11,20 L16,20 C16.5522847,20 17,19.5522847 17,19 C17,18.4477153 16.5522847,18 16,18 L11,18 Z M7,20 C7.55228475,20 8,19.5522847 8,19 C8,18.4477153 7.55228475,18 7,18 C6.44771525,18 6,18.4477153 6,19 C6,19.5522847 6.44771525,20 7,20 Z"
-                                                fill="#000000" />
-                                        </g>
-                                    </svg>
-                                    <!--end::Svg Icon--></span>
+                                        <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Design/Stamp.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path
+                                                    d="M12.9863016,8.83409843 C12.9953113,8.88805868 13,8.94348179 13,9 L13,11 L17,11 C18.1045695,11 19,11.8954305 19,13 L19,16 L5,16 L5,13 C5,11.8954305 5.8954305,11 7,11 L11,11 L11,9 C11,8.94348179 11.0046887,8.88805868 11.0136984,8.83409843 C9.84135601,8.42615464 9,7.31133193 9,6 C9,4.34314575 10.3431458,3 12,3 C13.6568542,3 15,4.34314575 15,6 C15,7.31133193 14.158644,8.42615464 12.9863016,8.83409843 Z"
+                                                    fill="#000000" />
+                                                <rect fill="#000000" opacity="0.3" x="5" y="18" width="14" height="2" rx="1" />
+                                            </g>
+                                        </svg>
+                                        <!--end::Svg Icon--></span>
                                 <!--end::Svg Icon-->
                             </span>
+                            <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">أخر المشاريع</div>
                             <div class="font-weight-bold text-inverse-dark font-size-sm">
+                                {{ App\Models\Project::count() }}
                             </div>
                         </div>
                         <!--end::Body-->
@@ -103,7 +110,7 @@
 
                 <div class="col-lg-4">
                     <!--begin::Stats Widget 16-->
-                    <a href="" class="card card-custom card-stretch gutter-b">
+                    <a href="{{ route('categories') }}" class="card card-custom card-stretch gutter-b">
                         <!--begin::Body-->
                         <div class="card-body">
                             <span class="svg-icon svg-icon-info svg-icon-3x ml-n1">
@@ -124,7 +131,10 @@
                                 <!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->
                             </span>
+                            <div class="text-inverse-white font-weight-bolder font-size-h5 mb-2 mt-5">اخر التصنيفات
+                            </div>
                             <div class="font-weight-bold text-inverse-white font-size-sm">
+                                {{ App\Models\Category::count() }}
                             </div>
                         </div>
                         <!--end::Body-->
@@ -134,7 +144,8 @@
 
                 <div class="col-lg-4">
                     <!--begin::Stats Widget 17-->
-                    <a href="" class="card card-custom bg-info bg-hover-state-info card-stretch card-stretch gutter-b">
+                    <a href="dashboard/users/"
+                        class="card card-custom bg-info bg-hover-state-info card-stretch card-stretch gutter-b">
                         <!--begin::Body-->
                         <div class="card-body">
                             <span class="svg-icon svg-icon-white svg-icon-3x ml-n1">
@@ -156,9 +167,10 @@
                                     <!--end::Svg Icon--></span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <div class="text-inverse-info font-weight-bolder font-size-h5 mb-2 mt-5">المستخدمين</div>
+                            <div class="text-inverse-info font-weight-bolder font-size-h5 mb-2 mt-5">اخر المستخدمين
+                            </div>
                             <div class="font-weight-bold text-inverse-info font-size-sm">
-                                {{-- {{ App\Models\User::count() }} --}}
+                                {{ App\Models\User::count() }}
                             </div>
                         </div>
                         <!--end::Body-->
@@ -169,6 +181,7 @@
             <!--end::Row-->
             <!--begin::Advance Table Widget 5-->
 
+        
             <!--end::Dashboard-->
         </div>
         <!--end::Container-->
