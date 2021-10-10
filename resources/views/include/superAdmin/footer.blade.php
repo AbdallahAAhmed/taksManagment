@@ -3,7 +3,7 @@
 
 		جميع الحقوق محفوظة
 
-		{{date("Y")}} &copy; BRISK - ICT.
+		{{date("Y")}} &copy; .
 
 
 

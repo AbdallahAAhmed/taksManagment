@@ -77,6 +77,8 @@
 
 
 
+
+
 <script>
     $(function() {
 
@@ -104,7 +106,12 @@
               method:'get',
               data:{},
               success:function (response){
-              ShowMessage(response.msg, "success", "متجري");
+             if (response.status == 1) {
+                ShowMessage(response.msg, "success", "ادارة المهام");
+                
+                } else {
+                ShowMessage(response.msg, "error", "ادارة المهام");
+                }
                  BindDataTable();
             }
         })
@@ -151,10 +158,10 @@
             $("#Confirm .btn-danger").click(function(e) {
                 $.get($("#Confirm .btn-danger").attr("href"), function(json) {
                     if (json.status == 1) {
-                        ShowMessage(json.msg, "success", "متجري");
+                        ShowMessage(json.msg, "success", "ادارة المهام");
 
                     } else {
-                        ShowMessage(json.msg, "error", "متجري");
+                        ShowMessage(json.msg, "error", "ادارة المهام");
                     }
                     BindDataTable();
                     // cDataTable();
@@ -178,7 +185,7 @@
                     $("#tblItems tbody tr").remove();
                     // $('.select2').val('').trigger('change.select2');
 
-                    ShowMessage(json.msg, "success", "متجري");
+                    ShowMessage(json.msg, "success", "ادارة المهام");
 
 
                     if (json.redirect != null)
@@ -203,7 +210,7 @@
 
                     }
                 } else {
-                    ShowMessage(json.msg, "error", "متجري");
+                    ShowMessage(json.msg, "error", "ادارة المهام");
                 }
                 if (json.redirect != null)
                     setTimeout(function() {
@@ -223,7 +230,7 @@
                     errorsHtml += '<li>' + value[0] + '</li>';
                 });
                 errorsHtml += "</ul>";
-                ShowMessage(errorsHtml, "error", "متجري");
+                ShowMessage(errorsHtml, "error", "ادارة المهام");
             }
         });
 
@@ -235,7 +242,7 @@
                     $('.ajaxFormss').resetForm();
                     // $('.select2').val('').trigger('change.select2');
 
-                    ShowMessage(json.msg, "success", "متجري");
+                    ShowMessage(json.msg, "success", "ادارة المهام");
 
 
                     if (json.redirect != null)
@@ -257,7 +264,7 @@
 
                     }
                 } else {
-                    ShowMessage(json.msg, "error", "متجري");
+                    ShowMessage(json.msg, "error", "ادارة المهام");
                 }
                 if (json.redirect != null)
                     setTimeout(function() {
@@ -277,7 +284,7 @@
                     errorsHtml += '<li>' + value[0] + '</li>';
                 });
                 errorsHtml += "</ul>";
-                ShowMessage(errorsHtml, "error", "متجري");
+                ShowMessage(errorsHtml, "error", "ادارة المهام");
             }
         });
 

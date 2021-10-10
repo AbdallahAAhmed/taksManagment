@@ -3,7 +3,7 @@
 <head>
 	<base href="">
 	<meta charset="utf-8" />
-	<title>متجري - @yield("page_title")</title>
+	<title>إدارة المهام - @yield("page_title")</title>
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	<link href="/assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
