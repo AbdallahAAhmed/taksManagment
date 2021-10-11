@@ -26,7 +26,7 @@ class LoginController extends Controller
                 'message' => 'User or Password is Wrong !'
             ]);
         }
-        return redirect()->route('home.index');
+        return redirect()->route('dashboard.index');
     }
 
     public function showLogin()

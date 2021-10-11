@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('home.index');
+        return redirect()->route('dashboard.index');
     }
 
 
