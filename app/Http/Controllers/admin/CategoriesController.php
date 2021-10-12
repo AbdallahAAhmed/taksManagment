@@ -39,7 +39,7 @@ class CategoriesController extends Controller
             [
                 'name' => 'required|string|max:255|min:3|unique:categories,name',
                 'icon' => 'nullable|image',
-                'user_id' => 'required',
+                'users' => 'required',
             ],
             [
                 'name.required' => 'القسم مطلوب',
@@ -47,40 +47,48 @@ class CategoriesController extends Controller
                 'name.max' => 'القسم يجب الا يتعدي 255 حرف',
                 'name.min' => 'يجب كتابة 3 احرف على الأقل',
                 'name.unique' => 'القسم موجود مسبقآ',
-                'user_id.required' => 'المستخدم مطلوب',
+                'users.required' => 'حقل الموظفين مطلوب',
                 'icon.image' => 'الإيقونة يجب ان تكون صورة بصيغة jpg|png|jpeg',
             ]
         );
-
         date_default_timezone_set('Asia/Hebron');
         unset($request['_token']);
         $icon = NULL;
         if ($request->hasFile('icon')) {
             $icon =  $this->saveImages($request->icon, 'images/categories/icon');
         }
-        $cat_name = $request->name;
-        $cat_user_id = $request->user_id;
-        $updated_at = Carbon::now();
-        $created_at = Carbon::now();
-        DB::insert('insert into categories (name,user_id,icon,created_at,updated_at) values (?,?,?,?,?)', [$cat_name, $cat_user_id, $icon, $created_at, $updated_at]);
-        return response()->json(['status' => 1, "msg" => "تم إضافة القسم \"$cat_name\" بنجاح"]);
+        DB::beginTransaction();
+        try {
+            $category = Category::create([
+                'name' => $request->name,
+                'icon' => $icon,
+            ]);
+            $category->users()->sync($request->users);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+            return response()->json(['status' => 2, "msg" => 'حدث خطأ في ادخال البيانات']);
+        }
+
+        return response()->json(['status' => 1, "msg" => "تم إضافة القسم \"$category->name\" بنجاح"]);
     }
 
     public function AjaxDT(Request $request)
     {
         if (request()->ajax()) {
-            $categories = DB::table('categories')
-                ->Join('users', 'users.id', '=', 'categories.user_id');
+            $categories = DB::table('categories');
 
             $categories->select([
-                'categories.*', 'users.username as username',
+                'categories.*',
                 DB::raw("DATE_FORMAT(categories.created_at, '%Y-%m-%d') as Date"),
             ])->groupBy('categories.id', 'categories.name')->get();
 
             return  DataTables::of($categories)
                 ->addColumn('actions', function ($categories) {
                     return '<a href="/dashboard/categories/edit/' . $categories->id . '" class="Popup" data-toggle="modal"  data-id="' . $categories->id . '"title="تعديل الصنف"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
-                            <a href="/dashboard/categories/delete/' . $categories->id . '" data-id="' . $categories->id . '" class="ConfirmLink "' . ' id="' . $categories->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>';
+                            <a href="/dashboard/categories/delete/' . $categories->id . '" data-id="' . $categories->id . '" class="ConfirmLink "' . ' id="' . $categories->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>
+                            <a href="/dashboard/categories/show/' . $categories->id . '" data-id="' . $categories->id . '" title="عرض الموظفين في هذا القسم"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>';
                 })->addColumn('icon', function ($categories) {
                     $url = asset('images/categories/icon/' . $categories->icon);
                     return '<img src="' . $url . '" border="0" style="border-radius: 10px;" width="40" class="img-rounded" align="center" />';
@@ -88,6 +96,11 @@ class CategoriesController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $category = Category::where('id',$id)->first();
+        return view('admin.categories.show',compact('category'));
+    }
 
     public function create()
     {
@@ -111,7 +124,7 @@ class CategoriesController extends Controller
             [
                 'name' => 'required|string|max:255|min:3|unique:categories,name,' . $id,
                 'icon' => 'nullable|image',
-                'user_id' => 'required',
+                'users' => 'required',
             ],
             [
                 'name.required' => 'القسم مطلوب',
@@ -119,7 +132,7 @@ class CategoriesController extends Controller
                 'name.max' => 'القسم يجب الا يتعدي 255 حرف',
                 'name.min' => 'يجب كتابة 3 احرف على الأقل',
                 'name.unique' => 'القسم موجود مسبقآ',
-                'user_id.required' => 'المستخدم مطلوب',
+                'users.required' => 'حقل الموظفين مطلوب',
                 'icon.image' => 'الإيقونة يجب ان تكون صورة بصيغة jpg|png|jpeg',
             ]
         );
@@ -129,6 +142,7 @@ class CategoriesController extends Controller
         date_default_timezone_set('Asia/Hebron');
         unset($request['_token']);
         $data = [];
+        $data['name']  = $request->name;
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
             $fileName = time() . Str::random(12) . '.' . $file->getClientOriginalExtension();
@@ -139,25 +153,41 @@ class CategoriesController extends Controller
             $data = ['icon' => $fileName] + $data;
         }
 
-        $icon =  implode(" ", $data);
-        $cat_name = $request->name;
-        $cat_user_id = $request->user_id;
-        $updated_at = Carbon::now();
-        $query = DB::table('categories')
-            ->where('id', $id)
-            ->update(['name' => $cat_name, 'icon' => $icon ,'user_id' => $cat_user_id, 'updated_at' => $updated_at]);
-        if ($query) {
-            return response()->json(['status' => 1, "msg" => "تم تعديل القسم \"$cat_name\" بنجاح"]);
+        DB::beginTransaction();
+        try {
+            $category->update($data);
+            $category->users()->sync($request->users);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+            return response()->json(['status' => 2, "msg" => 'حدث خطأ في ادخال البيانات']);
         }
+        return response()->json(['status' => 1, "msg" => "تم تعديل القسم \"$category->name\" بنجاح"]);
     }
 
     public function delete($id)
     {
         $category = Category::where('id', $id)->first();
-        if ($category) {
-            $category->delete();
-            return response()->json(['status' => 1, "msg" => "تم حذف القسم \"$category->name\" بنجاح"]);
+        if (File::exists(public_path('/images/categories/icon/') . $category->icon)) {
+            File::delete(public_path('/images/categories/icon/') . $category->icon);
         }
-        return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+        DB::beginTransaction();
+        try {
+            $category_users = DB::table('category_users')->where('category_id', "=", $category->id);
+            if ($category_users != null)
+                $category_users->delete();
+
+            if ($category) {
+                $category->delete();
+            }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+        }
+        return response()->json(['status' => 1, "msg" => "تم حذف القسم \"$category->name\" بنجاح"]);
     }
 }

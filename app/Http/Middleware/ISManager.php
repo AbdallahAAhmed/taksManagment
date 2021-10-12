@@ -20,7 +20,7 @@ class ISManager
             return $next($request);
         }
         abort(505);
-        return response()->json('Your dont have permession !');
+        return response()->json('You dont have permession !');
 
     }
 }

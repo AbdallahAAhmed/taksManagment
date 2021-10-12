@@ -61,7 +61,6 @@
                                         <tr>
                                             <th width="1%">#</th>
                                             <th width="3%">القسم</th>
-                                            <th width="3%">المستخدم</th>
                                             <th width="3%">الإيقونة</th>
                                             <th width="3%">تاريخ الإضافة</th>
                                             <th width="3%">إجراءات</th>
@@ -182,11 +181,6 @@
                 {
                     data: 'name',
                     name: 'name'
-                },
-
-                {
-                data: 'username',
-                name: 'username'
                 },
                 
                 {

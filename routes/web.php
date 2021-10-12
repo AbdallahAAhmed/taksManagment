@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\CategoriesController;
 use App\Http\Controllers\admin\dashboardController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
@@ -43,9 +44,10 @@ Route::group(
                 Route::get('/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
                 Route::put('/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
                 Route::get('/delete/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
+                Route::get('/show/{id}', [CategoriesController::class, 'show'])->name('categories.show');
             });
             //user routes
-             Route::group(['prefix' => 'users'], function () {
+            Route::group(['prefix' => 'users'], function () {
                 Route::get('/', [UserController::class, 'index'])->name('users');
                 Route::post('/AjaxDT', [UserController::class, 'AjaxDT']);
                 Route::get('/create', [UserController::class, 'create'])->name('users.create');
@@ -54,6 +56,7 @@ Route::group(
                 Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
             });
+
 
             //project routes
             Route::group(['prefix' => 'projects'], function () {
@@ -68,6 +71,11 @@ Route::group(
         });
     }
 );
+
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/show-profile/{id}', [ProfileController::class, 'profile'])->name('profile.show');
+    Route::post('/update_profile',   [ProfileController::class, 'updateProfile'])->name('update.profile');
+});
 
 //authentication routes
 Route::get('/user-register', [RegisterController::class, 'register'])->name('user.register');

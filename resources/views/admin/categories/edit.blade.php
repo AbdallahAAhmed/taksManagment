@@ -12,24 +12,29 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-3 col-form-label">القسم الأب :</label>
+                <label class="col-3 col-form-label">الموظفين :</label>
                 <div class="col-8">
-                    <select class="form-control select2" id="user_id" name="user_id">
-                        <option value="">لا يوجد أب</option>
-                        @foreach (App\Models\User::all() as $user)
-                        <option {{ ($user->id == $category->user_id) ? 'selected' : '' }} value="{{ $user->id }}">
-                            {{ $user->username }}</option>
+                    <select class="form-control select2" id="users" name="users[]" multiple="multiple">
+                        <option disabled>الموظفين:</option>
+                        @foreach(App\Models\User::all() as $user)
+                        <option value="{{ $user->id }}" @foreach($category->users as $category_users)
+                            @if($category_users->id == $user->id)
+                            selected
+                            @endif
+                            @endforeach>{{ $user->username }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-           <div class="form-group row">
+            <div class="form-group row">
                 <label class="col-3 col-form-label">الإيقونة :</label>
                 <div class="col-8">
                     <input type="file" name="icon" id="icone" class="form-control file-image" id="file-image">
                     @if ($category->icon)
-                        <img src="{{ asset('images/categories/icon/' . $category->icon) }}" class="img-rounded pt-2" height="100px" width="90px" style="border-radius: 10px">
+                    <img src="{{ asset('images/categories/icon/' . $category->icon) }}" class="img-rounded pt-2"
+                        height="100px" width="90px" style="border-radius: 10px">
                     @endif
                 </div>
             </div>

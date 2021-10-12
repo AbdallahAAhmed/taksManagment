@@ -42,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(
+            Category::class,
+            'category_users', //the pivot table
+            'user_id', //this modal id in pivot table
+            'category_id', //anthor id for second table
+            'id', //id for this table 
+            'id' // id for anthor table
+        );
+    }
 }

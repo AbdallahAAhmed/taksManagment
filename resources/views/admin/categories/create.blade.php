@@ -4,19 +4,19 @@
             {{csrf_field()}}
 
             <div class="form-group row">
-                <label class="col-3 col-form-label">التصنيف :</label>
+                <label class="col-3 col-form-label">القسم :</label>
                 <div class="col-8">
                     <input class="form-control" name="name" autofocus style="text-align: center" type="text" id="name"
                         autocomplete="off">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-3 col-form-label">القسم :</label>
+                <label class="col-3 col-form-label">الموظفين :</label>
                 <div class="col-8">
-                    <select name="user_id" id="user_id" class="form-control select2">
-                        <option value="">المستخدم</option>
-                        @foreach (App\Models\User::all() as $user)
-                        <option value="{{ $user->id }}">{{ $user->username }}</option>
+                    <select class="form-control select2" id="users" name="users[]" multiple="multiple">
+                        <option disabled>الموظفين:</option>
+                        @foreach(App\Models\User::all() as $user)
+                        <option value="{{$user->id}}">{{$user->username}}</option>
                         @endforeach
                     </select>
                 </div>
