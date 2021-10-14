@@ -116,11 +116,20 @@ class ContactController extends Controller
 
             return  DataTables::of($my_contact)
                 ->addColumn('actions', function ($my_contact) {
-                    return '<a href="/dashboard/contacts/edit/' . $my_contact->id . '" class="Popup" data-toggle="modal"  data-id="' . $my_contact->id . '"title="تغيير القسم"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
+                    return '<a href="/dashboard/contacts/edit-myContact/' . $my_contact->id . '" class="Popup" data-toggle="modal"  data-id="' . $my_contact->id . '"title="تغيير القسم"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
                 })->editColumn('status', function ($my_contact) {
                     return ($my_contact->status == 1) ? "<span class='badge badge-primary'>تمت معالجة الطلب</span>" : "<span class='badge badge-success'>قيد المعالجة</span>";
                 })->rawColumns(['actions', 'status'])->make(true);
         }
+    }
+
+    public function editContact($id)
+    {
+        $contact = Contact::where('id', $id)->select(['id', 'category_id'])->first();
+        if ($contact == null) {
+            abort(404, 'الطلب غير موجود');
+        }
+        return view('admin.contacts.myContactedit_category', compact('contact'));
     }
 
     public function update(Request $request, $id)
@@ -131,11 +140,29 @@ class ContactController extends Controller
 
         $category_id = $request->category_id;
         $query =  DB::table('contacts')
-            ->where('id', $id)
+        ->where('id', $id)
             ->update(['category_id' => $category_id]);
         if ($query) {
             return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
         }
+    }
+
+    public function updateContact(Request $request, $id)
+    {
+
+        $contact = Contact::where('id',$id)->first();
+        $contact->update([
+            'category_id' => $request->category_id
+        ]);
+        return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+
+        // $category_id = $request->category_id;
+        // $query =  DB::table('contacts')
+        //     ->where('id', $id)
+        //     ->update(['category_id' => $category_id]);
+        // if ($query) {
+        //     return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+        // }
     }
 
     public function activate($id)

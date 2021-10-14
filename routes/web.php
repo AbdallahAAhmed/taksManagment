@@ -82,6 +82,8 @@ Route::group(
                 Route::get('/activate/{id}', [ContactController::class, 'activate']);
                 Route::get('/my-contacts', [ContactController::class, 'myContactIndex'])->name('myContact.show')->middleware('IsEmployee');
                 Route::post('/my-contacts-AjaxDT', [ContactController::class, 'myContact'])->middleware('IsEmployee');
+                Route::get('/edit-myContact/{id}', [ContactController::class, 'editContact'])->name('mycontacts.edit');
+                Route::put('/updatemyContact/{id}', [ContactController::class, 'updateContact'])->name('mycontacts.update');
             });
 
             //tasks routes
