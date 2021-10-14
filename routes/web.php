@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\admin\TaskController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Front\indexController;
@@ -57,7 +59,6 @@ Route::group(
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
             });
 
-
             //project routes
             Route::group(['prefix' => 'projects'], function () {
                 Route::get('/', [ProjectController::class, 'index'])->name('projects');
@@ -68,10 +69,37 @@ Route::group(
                 Route::put('/update/{id}', [ProjectController::class, 'update'])->name('projects.update');
                 Route::get('/delete/{id}', [ProjectController::class, 'delete'])->name('projects.delete');
             });
+
+            //orders/conracts routes
+            Route::group(['prefix' => 'contacts'], function () {
+                Route::get('/', [ContactController::class, 'index'])->name('contacts');
+                Route::post('/AjaxDT', [ContactController::class, 'AjaxDT']);
+                Route::get('/create', [ContactController::class, 'create'])->name('contacts.create');
+                Route::post('/store', [ContactController::class, 'store'])->name('contacts.store');
+                Route::get('/edit/{id}', [ContactController::class, 'edit'])->name('contacts.edit');
+                Route::put('/update/{id}', [ContactController::class, 'update'])->name('contacts.update');
+                Route::get('/delete/{id}', [ContactController::class, 'delete'])->name('contacts.delete');
+                Route::get('/activate/{id}', [ContactController::class, 'activate']);
+                Route::get('/my-contacts', [ContactController::class, 'myContactIndex'])->name('myContact.show')->middleware('IsEmployee');
+                Route::post('/my-contacts-AjaxDT', [ContactController::class, 'myContact'])->middleware('IsEmployee');
+            });
+
+            //tasks routes
+            Route::group(['prefix' => 'tasks'], function () {
+                Route::get('/', [TaskController::class, 'index'])->name('tasks');
+                Route::post('/AjaxDT', [TaskController::class, 'AjaxDT']);
+                Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
+                Route::post('/store', [TaskController::class, 'store'])->name('tasks.store');
+                Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('tasks.edit');
+                Route::put('/update/{id}', [TaskController::class, 'update'])->name('tasks.update');
+                Route::get('/delete/{id}', [TaskController::class, 'delete'])->name('tasks.delete');
+            });
         });
     }
 );
 
+
+//profile routes
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/show-profile/{id}', [ProfileController::class, 'profile'])->name('profile.show');
     Route::post('/update_profile',   [ProfileController::class, 'updateProfile'])->name('update.profile');

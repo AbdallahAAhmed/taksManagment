@@ -17,14 +17,12 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('task_name')->unique();
             $table->string('end_date');
+            $table->string('start_date');
             $table->text('task_description',255)->nullable();
             $table->enum('status',['inProgress','completed'])->default('inProgress');
 
             $table->unsignedBigInteger('user_id')->comment('assign_to');
             $table->foreign('user_id')->references('id')->on('users');
-
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
 
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');

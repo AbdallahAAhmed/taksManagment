@@ -1,6 +1,6 @@
 @extends("layouts.superAdmin")
 @section('page_title')
- منتج {{ $category->name }}
+  {{ $category->name }} -
 @endsection
 @section('breadcrumb')
 
@@ -9,7 +9,7 @@
         <a href="{{ route('categories') }}" class="text-muted">الأقسام</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> الأقسام - الموظفين </a>
+        <a href="" class="text-muted"> الموظفين </a>
     </li>
 </ul>
 @endsection
