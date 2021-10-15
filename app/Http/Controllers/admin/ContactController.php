@@ -11,7 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller
 {
-    
+
     public function __construct()
     {
         return $this->middleware(['auth', 'ISManager'], ['only' => ['index', 'delete', 'activate', 'edit']]);
@@ -88,8 +88,8 @@ class ContactController extends Controller
 
     public function edit($id)
     {
-        $contact = Contact::where('id', $id)->select(['id', 'category_id'])->first();
-        if ($contact == null) {
+        $contact = $this->editContactData($id);
+        if (!$contact) {
             abort(404, 'الطلب غير موجود');
         }
         return view('admin.contacts.edit_category', compact('contact'));
@@ -125,8 +125,8 @@ class ContactController extends Controller
 
     public function editContact($id)
     {
-        $contact = Contact::where('id', $id)->select(['id', 'category_id'])->first();
-        if ($contact == null) {
+        $contact = $this->editContactData($id);
+        if (!$contact) {
             abort(404, 'الطلب غير موجود');
         }
         return view('admin.contacts.myContactedit_category', compact('contact'));
@@ -134,35 +134,22 @@ class ContactController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $contact->update([
-        //     'category_id' => $request->category_id
-        // ]);
-
-        $category_id = $request->category_id;
-        $query =  DB::table('contacts')
-        ->where('id', $id)
-            ->update(['category_id' => $category_id]);
-        if ($query) {
+        $result = $this->UpdateContactData($request, $id);
+        if ($result) {
             return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+        } else {
+            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
         }
     }
 
     public function updateContact(Request $request, $id)
     {
-
-        $contact = Contact::where('id',$id)->first();
-        $contact->update([
-            'category_id' => $request->category_id
-        ]);
-        return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
-
-        // $category_id = $request->category_id;
-        // $query =  DB::table('contacts')
-        //     ->where('id', $id)
-        //     ->update(['category_id' => $category_id]);
-        // if ($query) {
-        //     return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
-        // }
+        $result = $this->UpdateContactData($request, $id);
+        if ($result) {
+            return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+        } else {
+            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+        }
     }
 
     public function activate($id)
@@ -180,5 +167,28 @@ class ContactController extends Controller
             $contact->delete();
         }
         return response()->json(['status' => 1, "msg" => "تم حذف الطلب \"$contact->title\" بنجاح"]);
+    }
+
+    protected function editContactData($id)
+    {
+        $contact = Contact::where('id', $id)->select(['id', 'category_id'])->first();
+        if ($contact != null) {
+            return $contact;
+        } else {
+            return false;
+        }
+    }
+
+    protected function UpdateContactData($request, $id)
+    {
+        try {
+            $category_id = $request->category_id;
+            $query =  DB::table('contacts')
+                ->where('id', $id)
+                ->update(['category_id' => $category_id]);
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }

@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">القسم</label>
                             <div class="col-6">
-                                <select class="form-control select2" id="category_id" name="category_id" multiple="multiple">
+                                <select class="form-control select2" id="category_id" name="category_id">
                                     <option disabled>القسم:</option>
                                     @foreach(App\Models\Category::all() as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>

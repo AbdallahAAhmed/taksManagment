@@ -95,6 +95,13 @@ Route::group(
                 Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('tasks.edit');
                 Route::put('/update/{id}', [TaskController::class, 'update'])->name('tasks.update');
                 Route::get('/delete/{id}', [TaskController::class, 'delete'])->name('tasks.delete');
+                Route::get('/activate/{id}', [TaskController::class, 'activate']);
+                Route::get('/comlpeted-tasks', [TaskController::class, 'comlpetedTask'])->name('comlpeted.tasks');
+                Route::post('/comlpeted-tasks-AjaxDT', [TaskController::class, 'comlpetedTaskAjaxDT']);
+                Route::get('/my-tasks', [TaskController::class, 'MyTask'])->name('MyTask');
+                Route::post('/my-tasks-AjaxDT', [TaskController::class, 'MyTaskAjaxDT']);
+                Route::get('/show/{id}', [TaskController::class, 'showTask'])->name('tasks.show');
+                Route::get('/my-comlpeted-tasks', [TaskController::class, 'MycomlpetedTask'])->name('mycomlpeted.tasks');
             });
         });
     }
