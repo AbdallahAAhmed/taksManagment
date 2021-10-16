@@ -16,7 +16,10 @@ class TaskController extends Controller
     public function __construct()
     {
         return $this->middleware(['auth', 'ISManager'])
-            ->except(['MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask']);
+            ->except(
+                [
+                'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask'
+            ]);
     }
 
     public function index()

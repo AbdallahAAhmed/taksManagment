@@ -53,7 +53,7 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">وصف عام</label>
                             <div class="col-lg-9 col-xl-6">
-                                <textarea name="task_description" placeholder="وصف عام" class="form-control" id="summernote"
+                                <textarea name="task_description" placeholder="وصف عام" class="form-control"
                                     cols="30" rows="10"></textarea>
                             </div>
                         </div>
