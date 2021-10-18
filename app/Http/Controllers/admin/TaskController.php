@@ -129,7 +129,7 @@ class TaskController extends Controller
 
     public function showTask($id)
     {
-        $task = DB::table('tasks')
+          $task =  DB::table('tasks')
             ->join('categories', 'categories.id', 'tasks.category_id')
             ->join('projects', 'projects.id', '=', 'tasks.project_id')
             ->select('tasks.*', 'categories.name as cat_name', 'projects.project_name as project_name')

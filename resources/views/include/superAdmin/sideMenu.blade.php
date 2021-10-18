@@ -131,23 +131,23 @@
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 				</li>
-			
+
 				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					<a href="javascript:;" class="menu-link menu-toggle">
 						<span class="svg-icon menu-icon">
-						<span class="svg-icon svg-icon-success">
-							<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Component.svg-->
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-								viewBox="0 0 24 24" version="1.1">
-								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									<rect x="0" y="0" width="24" height="24"></rect>
-									<path
-										d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z"
-										fill="#000000"></path>
-								</g>
-							</svg>
-							<!--end::Svg Icon-->
-						</span>
+							<span class="svg-icon svg-icon-success">
+								<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Component.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"></rect>
+										<path
+											d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z"
+											fill="#000000"></path>
+									</g>
+								</svg>
+								<!--end::Svg Icon-->
+							</span>
 							<span class="menu-text pl-2">المهام</span>
 							<i class="menu-arrow"></i>
 					</a>
@@ -176,7 +176,7 @@
 									<span class="menu-text">المهام الجارية </span>
 								</a>
 							</li>
-				
+
 							<li class="menu-item" aria-haspopup="true">
 								<a href="{{ route('comlpeted.tasks') }}" class="menu-link">
 									<i class="menu-bullet menu-bullet-dot">
@@ -213,6 +213,29 @@
 					</a>
 
 				</li>
+
+				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					<a href="{{ route('settings.edit',$setting->id) }}" class="menu-link menu-toggle">
+						<span class="svg-icon menu-icon">
+							<span class="svg-icon svg-icon-primary">
+								<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/General/Settings-2.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"></rect>
+										<path
+											d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"
+											fill="#000000"></path>
+									</g>
+								</svg>
+								<!--end::Svg Icon-->
+							</span>
+							<span class="menu-text pl-2">الإعدادات</span>
+							{{-- <i class="menu-arrow"></i> --}}
+					</a>
+
+				</li>
+
 				@endif
 				@if (Auth::check() && auth()->user()->role == 'employee')
 				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -264,53 +287,53 @@
 				</li>
 
 				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-						<a href="javascript:;" class="menu-link menu-toggle">
-							<span class="svg-icon menu-icon">
-								<span class="svg-icon svg-icon-success">
-									<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Component.svg-->
-									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-										height="24px" viewBox="0 0 24 24" version="1.1">
-										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-											<rect x="0" y="0" width="24" height="24"></rect>
-											<path
-												d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z"
-												fill="#000000"></path>
-										</g>
-									</svg>
-									<!--end::Svg Icon-->
-								</span>
-								<span class="menu-text pl-2">المهام</span>
-								<i class="menu-arrow"></i>
-						</a>
-						<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">
+					<a href="javascript:;" class="menu-link menu-toggle">
+						<span class="svg-icon menu-icon">
+							<span class="svg-icon svg-icon-success">
+								<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Component.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"></rect>
+										<path
+											d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z"
+											fill="#000000"></path>
+									</g>
+								</svg>
+								<!--end::Svg Icon-->
+							</span>
+							<span class="menu-text pl-2">المهام</span>
 							<i class="menu-arrow"></i>
-							<ul class="menu-subnav">
-								<li class="menu-item menu-item-parent" aria-haspopup="true">
-									<span class="menu-link">
-										<span class="menu-text">مهمة جديدة</span>
-									</span>
-								</li>
-					
-								<li class="menu-item" aria-haspopup="true">
-									<a href="{{route('MyTask')}}" class="menu-link">
-										<i class="menu-bullet menu-bullet-dot">
-											<span></span>
-										</i>
-										<span class="menu-text">مهماتي </span>
-									</a>
-								</li>
-					
-								<li class="menu-item" aria-haspopup="true">
-									<a href="{{ route('mycomlpeted.tasks') }}" class="menu-link">
-										<i class="menu-bullet menu-bullet-dot">
-											<span></span>
-										</i>
-										<span class="menu-text">مهماتي المكتملة</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
+					</a>
+					<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">
+						<i class="menu-arrow"></i>
+						<ul class="menu-subnav">
+							<li class="menu-item menu-item-parent" aria-haspopup="true">
+								<span class="menu-link">
+									<span class="menu-text">مهمة جديدة</span>
+								</span>
+							</li>
+
+							<li class="menu-item" aria-haspopup="true">
+								<a href="{{route('MyTask')}}" class="menu-link">
+									<i class="menu-bullet menu-bullet-dot">
+										<span></span>
+									</i>
+									<span class="menu-text">مهماتي </span>
+								</a>
+							</li>
+
+							<li class="menu-item" aria-haspopup="true">
+								<a href="{{ route('mycomlpeted.tasks') }}" class="menu-link">
+									<i class="menu-bullet menu-bullet-dot">
+										<span></span>
+									</i>
+									<span class="menu-text">مهماتي المكتملة</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
 				@endif
 
 			</ul>

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\TaskController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
@@ -102,6 +103,12 @@ Route::group(
                 Route::post('/my-tasks-AjaxDT', [TaskController::class, 'MyTaskAjaxDT']);
                 Route::get('/show/{id}', [TaskController::class, 'showTask'])->name('tasks.show');
                 Route::get('/my-comlpeted-tasks', [TaskController::class, 'MycomlpetedTask'])->name('mycomlpeted.tasks');
+            });
+
+            //setting route
+            Route::group(['prefix' => 'settings'], function () {
+                Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('settings.edit');
+                Route::put('/update/{id}', [SettingController::class, 'update'])->name('settings.update');
             });
         });
     }
