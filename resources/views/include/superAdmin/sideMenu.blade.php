@@ -214,7 +214,7 @@
 
 				</li>
 
-				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				{{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					<a href="{{ route('settings.edit',$setting->id) }}" class="menu-link menu-toggle">
 						<span class="svg-icon menu-icon">
 							<span class="svg-icon svg-icon-primary">
@@ -234,7 +234,7 @@
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 
-				</li>
+				</li> --}}
 
 				@endif
 				@if (Auth::check() && auth()->user()->role == 'employee')
