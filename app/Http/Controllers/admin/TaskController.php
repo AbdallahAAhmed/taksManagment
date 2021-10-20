@@ -18,8 +18,9 @@ class TaskController extends Controller
         return $this->middleware(['auth', 'ISManager'])
             ->except(
                 [
-                'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask'
-            ]);
+                    'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask'
+                ]
+            );
     }
 
     public function index()
@@ -31,7 +32,7 @@ class TaskController extends Controller
     {
         if (request()->ajax()) {
             $tasks = DB::table('tasks')
-                ->join('users', 'users.id', '=', 'tasks.user_id')
+                ->leftJoin('users', 'users.id', '=', 'tasks.user_id')
                 ->join('categories', 'categories.id', '=', 'tasks.category_id')
                 ->join('projects', 'projects.id', '=', 'tasks.project_id');
 
@@ -63,7 +64,7 @@ class TaskController extends Controller
     {
         if (request()->ajax()) {
             $tasks = DB::table('tasks')
-                ->join('users', 'users.id', '=', 'tasks.user_id')
+                ->leftJoin('users', 'users.id', '=', 'tasks.user_id')
                 ->join('categories', 'categories.id', '=', 'tasks.category_id')
                 ->join('projects', 'projects.id', '=', 'tasks.project_id');
 
@@ -129,7 +130,7 @@ class TaskController extends Controller
 
     public function showTask($id)
     {
-          $task =  DB::table('tasks')
+        $task =  DB::table('tasks')
             ->join('categories', 'categories.id', 'tasks.category_id')
             ->join('projects', 'projects.id', '=', 'tasks.project_id')
             ->select('tasks.*', 'categories.name as cat_name', 'projects.project_name as project_name')
@@ -151,7 +152,7 @@ class TaskController extends Controller
                 'start_date' => 'required|date',
                 'end_date' => 'required|date',
                 'task_description' => 'required|min:6|max:255',
-                'user_id' => 'required|exists:users,id',
+                'user_id' => 'nullable|exists:users,id',
                 'project_id' => 'required|exists:projects,id',
                 'category_id' => 'required|exists:categories,id',
             ],
@@ -160,7 +161,6 @@ class TaskController extends Controller
                 'start_date.required' => 'تاريخ بداية المهمة مطلوب',
                 'end_date.required' => 'تاريخ نهاية المهمة مطلوب',
                 'task_description.required' => 'وصف المهمة مطلوب',
-                'user_id.required' => 'الموظف مطلوب',
                 'project_id.required' => 'المشروع مطلوب',
                 'start_date.date' => 'تاريخ البداية يجب ان يكون تاريخ',
                 'end_date' => 'تاريخ النهاية يجب ان يكون تاريخ',
@@ -294,10 +294,11 @@ class TaskController extends Controller
             $end_date = $request->end_date;
             $task_description = $request->task_description;
             $status = $request->status;
+            $user_id = $request->user_id;
             $updated_at = Carbon::now();
             $query = DB::table('tasks')
                 ->where('id', $id)
-                ->update(['task_name' => $task_name, 'start_date' => $start_date, 'end_date' => $end_date, 'task_description' => $task_description, 'status' => $status, 'updated_at' => $updated_at]);
+                ->update(['task_name' => $task_name, 'start_date' => $start_date, 'end_date' => $end_date, 'task_description' => $task_description, 'status' => $status, 'user_id' => $user_id, 'updated_at' => $updated_at]);
             return true;
         } catch (\Throwable $th) {
             return  false;

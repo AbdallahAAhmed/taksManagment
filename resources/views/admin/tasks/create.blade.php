@@ -74,6 +74,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
+                            <div class="col-6">
+                                <select class="form-control select2" id="category_id" name="category_id">
+                                    <option selected disabled value="">القسم</option>
+                                    @foreach(App\Models\Category::all() as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
@@ -94,18 +105,6 @@
                                     <option selected disabled value="">المشروع</option>
                                     @foreach(App\Models\Project::all() as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
-                            <div class="col-6">
-                                <select class="form-control select2" id="category_id" name="category_id">
-                                    <option selected disabled value="">القسم</option>
-                                    @foreach(App\Models\Category::all() as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

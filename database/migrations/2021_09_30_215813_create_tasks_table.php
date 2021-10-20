@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->text('task_description',255)->nullable();
             $table->enum('status',['inProgress','completed'])->default('inProgress');
 
-            $table->unsignedBigInteger('user_id')->comment('assign_to');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('assign_to');
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('project_id');
