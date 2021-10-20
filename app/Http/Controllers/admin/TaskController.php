@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\category_users;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -233,6 +234,18 @@ class TaskController extends Controller
             }
         } else {
             return response()->json(['status' => 0, "msg" => "يرجى التحقق من فترة نهاية وبداية المهمة بالنسبة لفترة المشروع"]);
+        }
+    }
+
+    public function category_users($id)
+    {
+        $category_user = DB::table('category_users')
+            ->join('users', 'users.id', 'category_users.user_id')
+            ->where('category_id', $id)->get();
+        if ($category_user->isEmpty()) {
+            return response()->json(['status' => false]);
+        } else {
+            return response()->json(['status' => true, 'data' => $category_user]);
         }
     }
 

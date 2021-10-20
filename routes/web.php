@@ -103,6 +103,7 @@ Route::group(
                 Route::post('/my-tasks-AjaxDT', [TaskController::class, 'MyTaskAjaxDT']);
                 Route::get('/show/{id}', [TaskController::class, 'showTask'])->name('tasks.show');
                 Route::get('/my-comlpeted-tasks', [TaskController::class, 'MycomlpetedTask'])->name('mycomlpeted.tasks');
+                Route::get('/category_users/{id}', [TaskController::class, 'category_users']);
             });
 
             //setting route

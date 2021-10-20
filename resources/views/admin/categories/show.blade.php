@@ -1,6 +1,6 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-  {{ $category->name }} -
+{{ $category->name }} -
 @endsection
 @section('breadcrumb')
 
@@ -15,34 +15,83 @@
 @endsection
 
 @section('content')
-    <div class="card-body pt-4">
-        <!--begin::Item-->
-        <div class="card-header border-0" style="padding-top: 15px !important">
-            <h3 class="card-title fw-bolder text-dark">الموظفين لهذا القسم</h3>
-        </div>
-        @foreach ($category->users as $category_user)
-        <div class="d-flex align-items-center">
-            {{ $loop->iteration }} |
-            <div class="symbol symbol-80px me-5" style="padding-left:1px">
-                <img src="{{ asset('user-image.png') }}" class="img-fluid" alt="">
-            </div>
-            <div class="flex-grow-1">
-                <a  class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">الإسم :</span> {{ $category_user->username }}</a><br>
-                <a  class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">البريد الإلكتروني :</span> {{ $category_user->email }}</a><br>
-            </div>
-        </div><br>
-        @endforeach
-        
+<div class="card-body pt-4">
+    <!--begin::Item-->
+    <div class="card-header border-0" style="padding-top: 15px !important">
+        <h3 class="card-title fw-bolder text-dark">الموظفين لهذا القسم</h3>
     </div>
+    @foreach ($category->users as $category_user)
+    <div class="d-flex align-items-center">
+        {{ $loop->iteration }} |
+        <div class="symbol symbol-80px me-5" style="padding-left:1px">
+            <img src="{{ asset('user-image.png') }}" class="img-fluid" alt="">
+        </div>
+        <div class="flex-grow-1">
+            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">الإسم :</span> {{
+                $category_user->username }}</a><br>
+            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">البريد الإلكتروني
+                    :</span> {{ $category_user->email }}</a><br>
+        </div>
+    </div><br>
+    @endforeach
+
+</div>
+
+<div class="card-body pt-4">
+    <!--begin::Item-->
+    <div class="card-header border-0" style="padding-top: 15px !important">
+        <h3 class="card-title fw-bolder text-dark">مهام القسم</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap table-bordered" id="tblAjax">
+                    <thead>
+                        <tr>
+                            <th width="1%">#</th>
+                            <th width="2%">المهمة</th>
+                            <th width="2%">تاريخ البداية</th>
+                            <th width="2%">تاريخ النهاية</th>
+                            <th width="2%">المستخدم</th>
+                            <th width="2%">الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($category->tasks as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->task_name }}</td>
+                            <td>{{ $item->start_date}}</td>
+                            <td>{{ $item->end_date }}</td>
+                            <td>
+                                @if (empty($item->user->username))
+                                    <span class="badge badge-info">لا يوجد مستخدم منتسب لهذه المهمة</span> 
+                                @else
+                                     {{ $item->user->username }}</td>
+                                @endif
+                            <td>{{ $item->status }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('css')
-    <style>
-        .card-header{
-            padding:0 !important
-        }
-        .symbol > img{
-            max-width: 100px !important;
-        }
-    </style>
+<style>
+    .card-header {
+        padding: 0 !important
+    }
+
+    .symbol>img {
+        max-width: 100px !important;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
 @endsection

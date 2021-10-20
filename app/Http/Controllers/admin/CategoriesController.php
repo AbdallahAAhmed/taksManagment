@@ -98,7 +98,7 @@ class CategoriesController extends Controller
 
     public function show($id)
     {
-        $category = Category::where('id',$id)->first();
+        $category = Category::with('tasks')->where('id',$id)->first();
         return view('admin.categories.show',compact('category'));
     }
 

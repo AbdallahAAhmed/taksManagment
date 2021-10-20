@@ -14,9 +14,9 @@
 </ul>
 @endsection
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
- 
-    @endsection
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="container">
@@ -53,23 +53,25 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">وصف عام</label>
                             <div class="col-lg-9 col-xl-6">
-                                <textarea name="task_description" placeholder="وصف عام" class="form-control"
-                                    cols="30" rows="10"></textarea>
+                                <textarea name="task_description" placeholder="وصف عام" class="form-control" cols="30"
+                                    rows="10"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ بداية المهمة</label>
                             <div class="col-lg-9 col-xl-6">
-                                <input style="text-align: center" class="form-control form-control-lg form-control-solid" id="start_date"
-                                    type="date" name="start_date">
+                                <input style="text-align: center"
+                                    class="form-control form-control-lg form-control-solid" id="start_date" type="date"
+                                    name="start_date">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label  class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ نهاية المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ نهاية المهمة</label>
                             <div class="col-lg-9 col-xl-6">
-                                <input style="text-align: center" class="form-control form-control-lg form-control-solid" id="end_date"  type="date"
+                                <input style="text-align: center"
+                                    class="form-control form-control-lg form-control-solid" id="end_date" type="date"
                                     name="end_date">
                             </div>
                         </div>
@@ -89,11 +91,8 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
                             <div class="col-6">
-                                <select class="form-control select2" id="user_id" name="user_id">
-                                    <option selected disabled value="">الموظف</option>
-                                    @foreach(App\Models\User::all() as $user)
-                                    <option value="{{$user->id}}">{{$user->username}}</option>
-                                    @endforeach
+                                <select class="form-control select2 userbox" id="user_id" name="user_id">
+
                                 </select>
                             </div>
                         </div>
@@ -127,7 +126,6 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
-  
     $(document).ready(function() {
     $('#summernote').summernote({
         height: 100, // set editor height
@@ -185,7 +183,28 @@
     ShowMessage(errorsHtml, "error", "ادارة المهام");
     }
     });
-    
+
+    $(document).on('change','#category_id',function (){
+    var category_id = $(this).val();
+    $.ajax({
+    url:'/dashboard/tasks/category_users/'+category_id,
+    method:'get',
+    data:{
+    },
+    success:function (response){
+    if (response.status){
+    $(".userbox").fadeIn();
+    $('#user_id').html("")
+    $.each(response.data,function (index,value){
+    $('#user_id').append("<option value='"+value.id+"'>"+value.username+"</option>")
+    });
+    }else{
+    $(".userbox").fadeOut();
+    $('#user_id').html("")
+    }
+    }
+    })
+    })
     });
    
 </script>

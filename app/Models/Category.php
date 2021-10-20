@@ -12,6 +12,11 @@ class Category extends Model
     protected $guarded;
 
     
+    public function tasks()
+    {
+        return $this->hasMany(Task::class,'category_id');
+    }
+
     public function users()
     {
         return $this->belongsToMany(
