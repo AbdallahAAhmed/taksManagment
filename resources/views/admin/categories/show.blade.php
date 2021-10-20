@@ -52,7 +52,6 @@
                             <th width="2%">المهمة</th>
                             <th width="2%">تاريخ البداية</th>
                             <th width="2%">تاريخ النهاية</th>
-                            <th width="2%">المستخدم</th>
                             <th width="2%">الحالة</th>
                         </tr>
                     </thead>
@@ -63,12 +62,6 @@
                             <td>{{ $item->task_name }}</td>
                             <td>{{ $item->start_date}}</td>
                             <td>{{ $item->end_date }}</td>
-                            <td>
-                                @if (empty($item->user->username))
-                                    <span class="badge badge-info">لا يوجد مستخدم منتسب لهذه المهمة</span> 
-                                @else
-                                     {{ $item->user->username }}</td>
-                                @endif
                             <td>{{ $item->status }}</td>
                         </tr>
                         @endforeach
