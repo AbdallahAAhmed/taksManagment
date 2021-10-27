@@ -52,7 +52,7 @@ class ContactController extends Controller
 
     public function create()
     {
-       $user_categories = User::with('categories')->where('id',auth()->user()->id)->first();
+       $user_categories = User::with('categories')->where('id',parent::authId())->first();
        return view('admin.contacts.create',compact('user_categories'));
     }
 
@@ -82,7 +82,7 @@ class ContactController extends Controller
         $title = $request->input('title');
         $message = $request->input('message');
         $category_id = $request->input('category_id');
-        $user_id = auth()->user()->id;
+        $user_id = parent::authId();
         $updated_at = Carbon::now();
         $created_at = Carbon::now();
         DB::insert('insert into contacts (title,message,category_id,user_id,created_at,updated_at) values (?,?,?,?,?,?)', [$title, $message, $category_id, $user_id, $created_at, $updated_at]);
@@ -106,7 +106,6 @@ class ContactController extends Controller
     public function myContact()
     {
 
-        $id = auth()->user()->id;
         if (request()->ajax()) {
             $my_contact = DB::table('contacts')
                 ->Join('categories', 'categories.id', '=', 'contacts.category_id');
@@ -114,7 +113,7 @@ class ContactController extends Controller
             $my_contact->select([
                 'contacts.id', 'contacts.title', 'contacts.status', 'categories.name as category_name',
                 DB::raw("DATE_FORMAT(contacts.created_at, '%Y-%m-%d') as Date"),
-            ])->groupBy('contacts.id', 'contacts.title')->where('user_id', $id)->get();
+            ])->groupBy('contacts.id', 'contacts.title')->where('user_id', parent::authId())->get();
 
 
             return  DataTables::of($my_contact)

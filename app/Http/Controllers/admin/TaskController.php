@@ -15,13 +15,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TaskController extends Controller
 {
-
+   
     public function __construct()
     {
-        return $this->middleware(['auth','ISManager'])
+       return $this->middleware(['auth','ISManager'])
             ->except(
                 [
-                    'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask','edit_user_task'
+                    'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask','edit_user_task','update_user_task'
                 ]
             );
     }
@@ -106,14 +106,13 @@ class TaskController extends Controller
 
     public function MyTaskAjaxDT()
     {
-        $id = Auth::id();
         if (request()->ajax()) {
             $task = DB::table('tasks')
                 ->join('categories', 'categories.id', '=', 'tasks.category_id')
                 ->join('projects', 'projects.id', '=', 'tasks.project_id')
                 ->select('tasks.*','categories.name as category_name',
                         'projects.project_name as project_name')
-                ->where('tasks.user_id', $id)
+                ->where('tasks.user_id', parent::authId())
                 ->where("tasks.isDelete", "=", 0)
                 ->where('tasks.status', "=", 'inProgress')->get();
 
@@ -144,7 +143,7 @@ class TaskController extends Controller
         unset($request['_token']);
         try {
         $user_id = $request->user_id;
-        $query = DB::table('tasks')
+        DB::table('tasks')
         ->where('id', $id)
         ->update(['user_id' => $user_id]);
           return response()->json(['status' => 1, "msg" => "تم تعين مستخدم جديد للمهمة"]);
@@ -155,13 +154,12 @@ class TaskController extends Controller
 
     public function MycomlpetedTask()
     {
-        $id = Auth::id();
         $tasks = DB::table('tasks')
             ->join('categories', 'categories.id', 'tasks.category_id')
             ->join('projects', 'projects.id', '=', 'tasks.project_id')
             ->select('tasks.*', 'categories.name as cat_name', 'projects.project_name as project_name')
             ->where('tasks.status', 'completed')
-            ->where('tasks.user_id', $id)->get();
+            ->where('tasks.user_id', parent::authId())->get();
         return view('admin.tasks.my_completed_task', compact('tasks'));
     }
 
@@ -367,16 +365,16 @@ class TaskController extends Controller
     protected function filter($request,$tasks)
     {
           if ($request->status != Null && $request->status != '')
-          $tasks->where('status', $request->status);
+             $tasks->where('status', $request->status);
 
           if ($request->project_id != Null && $request->project_id != '')
-          $tasks->where('tasks.project_id', $request->project_id);
+             $tasks->where('tasks.project_id', $request->project_id);
 
           if ($request->category_id != Null && $request->category_id != '')
-          $tasks->where('tasks.category_id', $request->category_id);
+             $tasks->where('tasks.category_id', $request->category_id);
 
           if ($request->user_id != Null && $request->user_id != '')
-          $tasks->where('tasks.user_id', $request->user_id);
+              $tasks->where('tasks.user_id', $request->user_id);
           return true;
     }
 

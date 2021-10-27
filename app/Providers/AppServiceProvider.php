@@ -28,11 +28,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $id = Auth::id();
-        $myTasks = DB::table('tasks')->select(['tasks.*'])->whereId($id)->get();
         view()->share('settings',Setting::orderBy('id','desc')->first());
         view()->share('about',About_us::orderBy('id','desc')->first());
-        view()->share('myTasks', $myTasks);
+      
+        view()->composer('*', function () {
+            $id = Auth::id();
+            view()->share('myTasks',Task::where('user_id',$id)
+                ->where('isDelete',0)
+                ->where('status','inProgress')->orderBy('id','desc')
+                ->get());
+        });
 
     }
 }
