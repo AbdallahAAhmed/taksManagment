@@ -39,6 +39,13 @@
 		.dt-buttons{
 			margin-top:5px !important;
 		}
+		.select2-selection__arrow{
+			padding-top: 9px !important;
+			padding-right: 5px !important;
+		}
+		.select2-selection__rendered{
+			padding-top: 4px !important;
+		}
 	</style>
 
 

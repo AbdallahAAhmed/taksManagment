@@ -54,4 +54,9 @@ class User extends Authenticatable
             'id' // id for anthor table
         );
     }
+
+    public function tasks()
+    {
+    return $this->hasMany(Task::class,'user_id');
+    }
 }

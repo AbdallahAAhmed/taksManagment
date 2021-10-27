@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\category_users;
 use App\Models\Contact;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +52,8 @@ class ContactController extends Controller
 
     public function create()
     {
-        return view('admin.contacts.create');
+       $user_categories = User::with('categories')->where('id',auth()->user()->id)->first();
+       return view('admin.contacts.create',compact('user_categories'));
     }
 
     public function store(Request $request)

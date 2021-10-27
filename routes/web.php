@@ -104,12 +104,18 @@ Route::group(
                 Route::get('/show/{id}', [TaskController::class, 'showTask'])->name('tasks.show');
                 Route::get('/my-comlpeted-tasks', [TaskController::class, 'MycomlpetedTask'])->name('mycomlpeted.tasks');
                 Route::get('/category_users/{id}', [TaskController::class, 'category_users']);
+                Route::get('/edit-user-task/{id}', [TaskController::class, 'edit_user_task']);
+                Route::put('/edit-user-task/update/{id}', [TaskController::class, 'update_user_task'])->name('update_user_task');
+                Route::get('/all-tasks', [TaskController::class, 'all_tasks'])->name('all_tasks');
+                Route::post('/allTasksAjaxDT', [TaskController::class, 'allTasksAjaxDT']);
             });
 
             //setting route
             Route::group(['prefix' => 'settings'], function () {
                 Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('settings.edit');
                 Route::put('/update/{id}', [SettingController::class, 'update'])->name('settings.update');
+                // Route::get('/my-tasks', [SettingController::class, 'myTask'])->name('myTask');
+
             });
         });
     }

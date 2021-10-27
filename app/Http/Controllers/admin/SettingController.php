@@ -4,10 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use PhpOffice\PhpSpreadsheet\Chart\Title;
 
 class SettingController extends Controller
 {
@@ -71,4 +72,5 @@ class SettingController extends Controller
         }
         return response()->json(['status' => 1, 'msg' => 'تم التحديث بنجاح', 'data' => $array]);
     }
+
 }

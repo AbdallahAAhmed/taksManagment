@@ -1,25 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\category_users;
 use App\Models\Task;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
+
 class TaskController extends Controller
 {
 
     public function __construct()
     {
-        return $this->middleware(['auth', 'ISManager'])
+        return $this->middleware(['auth','ISManager'])
             ->except(
                 [
-                    'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask'
+                    'MyTask', 'MyTaskAjaxDT', 'activate', 'MycomlpetedTask', 'showTask','edit_user_task'
                 ]
             );
     }
@@ -32,18 +34,11 @@ class TaskController extends Controller
     public function AjaxDT(Request $request)
     {
         if (request()->ajax()) {
-            $tasks = DB::table('tasks')
-                ->leftJoin('users', 'users.id', '=', 'tasks.user_id')
-                ->join('categories', 'categories.id', '=', 'tasks.category_id')
-                ->join('projects', 'projects.id', '=', 'tasks.project_id');
-
-            $tasks->select([
-                'tasks.*', 'users.username as username', 'categories.name as category_name',
-                'projects.project_name as project_name',
-                DB::raw("DATE_FORMAT(tasks.created_at, '%Y-%m-%d') as Date"),
-            ])->groupBy('tasks.id', 'tasks.task_name')
-                ->where("tasks.isDelete", "=", 0)
-                ->where('tasks.status', "=", 'inProgress')->get();
+            $tasks = $this->joinData();
+            $tasks = $this->selectionData($tasks);
+            $tasks->where("tasks.isDelete", "=", 0)
+            ->where('tasks.status', "=", 'inProgress')
+            ->get();
 
             return  DataTables::of($tasks)
                 ->addColumn('actions', function ($tasks) {
@@ -56,6 +51,32 @@ class TaskController extends Controller
         }
     }
 
+    public function all_tasks()
+    {
+        return view('admin.tasks.all_tasks');
+    }
+
+    public function allTasksAjaxDT(Request $request)
+    {
+        if (request()->ajax()) {
+          $tasks = $this->joinData();   
+          if ($this->filter($request,$tasks)) {
+              $tasks = $this->selectionData($tasks);
+              $tasks->where("tasks.isDelete", "=", 0)
+               ->get();
+          }  
+         
+         return DataTables::of($tasks)
+        ->editColumn('status', function ($tasks) {
+         return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>المهمة قيد العمل</span>" : "<span
+             class='badge badge-success'>المهمة مكتملة بنجاح</span>";
+         })->addColumn('change_status', function ($tasks) {
+         return '<input type="checkbox" class="cbActive" ' . ($tasks->status == "completed" ? "checked" : "") . '
+             name="status" value="' . $tasks->id . '" />';
+         })->rawColumns(['actions', 'status', 'change_status'])->make(true);
+         }
+    }
+
     public function comlpetedTask()
     {
         return view('admin.tasks.completed_task');
@@ -64,17 +85,9 @@ class TaskController extends Controller
     public function comlpetedTaskAjaxDT(Request $request)
     {
         if (request()->ajax()) {
-            $tasks = DB::table('tasks')
-                ->leftJoin('users', 'users.id', '=', 'tasks.user_id')
-                ->join('categories', 'categories.id', '=', 'tasks.category_id')
-                ->join('projects', 'projects.id', '=', 'tasks.project_id');
-
-            $tasks->select([
-                'tasks.*', 'users.username as username', 'categories.name as category_name',
-                'projects.project_name as project_name',
-                DB::raw("DATE_FORMAT(tasks.created_at, '%Y-%m-%d') as Date"),
-            ])->groupBy('tasks.id', 'tasks.task_name')
-                ->where("tasks.isDelete", "=", 0)
+            $tasks = $this->joinData();
+            $tasks =$this->selectionData($tasks);
+            $tasks->where("tasks.isDelete", "=", 0)
                 ->where('tasks.status', "=", 'completed')->get();
 
             return  DataTables::of($tasks)
@@ -98,22 +111,45 @@ class TaskController extends Controller
             $task = DB::table('tasks')
                 ->join('categories', 'categories.id', '=', 'tasks.category_id')
                 ->join('projects', 'projects.id', '=', 'tasks.project_id')
-                ->select(
-                    'tasks.*',
-                    'categories.name as category_name',
-                    'projects.project_name as project_name'
-                )->where('tasks.user_id', $id)
+                ->select('tasks.*','categories.name as category_name',
+                        'projects.project_name as project_name')
+                ->where('tasks.user_id', $id)
                 ->where("tasks.isDelete", "=", 0)
                 ->where('tasks.status', "=", 'inProgress')->get();
 
             return DataTables::of($task)
                 ->addColumn('actions', function ($task) {
-                    return '<a href="/dashboard/tasks/show/' . $task->id . '"   data-id="' . $task->id . '"title="عرض بيانات مفصلة عن المهمة"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>';
+                    return '<a href="/dashboard/tasks/show/' . $task->id . '"   data-id="' . $task->id . '"title="عرض بيانات مفصلة عن المهمة"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>
+                            <a href="/dashboard/tasks/edit-user-task/' . $task->id . '" data-id="' . $task->id . '" title="تعديل المهمة"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
                 })->editColumn('status', function ($task) {
                     return  "<span class='badge badge-primary'>المهمة قيد العمل</span>";
                 })->addColumn('change_status', function ($task) {
                     return '<input type="checkbox" class="cbActive"' . ($task->status == "completed" ? "checked" : "") . '  name="status" value="' . $task->id . '"/>';
                 })->rawColumns(['actions', 'status', 'change_status'])->make(true);
+        }
+    }
+
+    public function edit_user_task($id)
+    {
+       $task = Task::where('id',$id)->where('status','inProgress')->first();
+       $category_user = DB::table('category_users')
+       ->join('users', 'users.id', 'category_users.user_id')
+       ->select('users.id','users.username as username')->where('category_id',$task->category_id)->get();
+        return view('admin.tasks.edit_task_user',compact('category_user','task'));
+    }
+
+    public function update_user_task(Request $request,$id)
+    {
+        date_default_timezone_set('Asia/Hebron');
+        unset($request['_token']);
+        try {
+        $user_id = $request->user_id;
+        $query = DB::table('tasks')
+        ->where('id', $id)
+        ->update(['user_id' => $user_id]);
+          return response()->json(['status' => 1, "msg" => "تم تعين مستخدم جديد للمهمة"]);
+        } catch (\Throwable $th) {
+          return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
         }
     }
 
@@ -261,7 +297,7 @@ class TaskController extends Controller
 
     public function activate($id)
     {
-        $tasks = Task::findOrFail($id);
+        $tasks = Task::where('id',$id)->first();
         $tasks->status = $tasks->status == "inProgress" ? 'completed' : 'inProgress';
         $tasks->save();
         return response()->json(['status' => 1, "msg" => "تم إكمال المهمة بنجاح"]);
@@ -282,6 +318,7 @@ class TaskController extends Controller
     }
     protected function insertData($request)
     {
+        // dd($request->all());
         $created_at = Carbon::now();
         $updated_at = Carbon::now();
         try {
@@ -316,5 +353,40 @@ class TaskController extends Controller
         } catch (\Throwable $th) {
             return  false;
         }
+    }
+
+    protected function joinData()
+    {
+         $tasks = DB::table('tasks')
+         ->leftJoin('users', 'users.id', '=', 'tasks.user_id')
+         ->join('categories', 'categories.id', '=', 'tasks.category_id')
+         ->join('projects', 'projects.id', '=', 'tasks.project_id');
+         return $tasks;
+    }
+
+    protected function filter($request,$tasks)
+    {
+          if ($request->status != Null && $request->status != '')
+          $tasks->where('status', $request->status);
+
+          if ($request->project_id != Null && $request->project_id != '')
+          $tasks->where('tasks.project_id', $request->project_id);
+
+          if ($request->category_id != Null && $request->category_id != '')
+          $tasks->where('tasks.category_id', $request->category_id);
+
+          if ($request->user_id != Null && $request->user_id != '')
+          $tasks->where('tasks.user_id', $request->user_id);
+          return true;
+    }
+
+    protected function selectionData($tasks)
+    {
+          $tasks->select([
+          'tasks.*','users.username as username','categories.name as category_name',
+          'projects.project_name as project_name',
+          DB::raw("DATE_FORMAT(tasks.created_at, '%Y-%m-%d') as Date"),
+          ])->groupBy('tasks.id', 'tasks.task_name');
+          return $tasks;
     }
 }

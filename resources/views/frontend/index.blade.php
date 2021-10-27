@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-offset-2 col-md-8">
                     <h1 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">We make website that are
-                        <span>Task Management system</span></h1>
+                        <span>{{$settings->title}}</span></h1>
                     <div class="element">
                         <div class="sub-element">Hello, This is a task Management Website.</div>
                         <div class="sub-element">Task Management system Website is Designed and provided by Giri
@@ -50,8 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">WE ARE <span>Task Management
-                            system</span></h2>
+                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">WE ARE <span>{{$settings->title}}</span></h2>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.6s">
                     <div class="media">
@@ -62,9 +61,11 @@
                             <h3 class="media-heading">FULLY RESPONSIVE</h3>
                         </div>
                         <div class="media-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et
-                                laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris
-                                eget. Lorem ipsum dolor sit amet.</p>
+                            <p>
+                                @if (isset($about->responsive))
+                                {{ $about->responsive }}
+                                 @endif
+                        </p>
                         </div>
                     </div>
                 </div>
@@ -77,9 +78,11 @@
                             <h3 class="media-heading">FREE SUPPORT</h3>
                         </div>
                         <div class="media-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et
-                                laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris
-                                eget. Lorem ipsum dolor sit amet.</p>
+                            <p>
+                                @if (isset($about->support))
+                                {{ $about->support }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -92,9 +95,11 @@
                             <h3 class="media-heading">Stay on track to hit project goals.</h3>
                         </div>
                         <div class="media-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et
-                                laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris
-                                eget. Lorem ipsum dolor sit amet.</p>
+                            <p>
+                                @if (isset($about->goal_track))
+                                {{ $about->goal_track }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>

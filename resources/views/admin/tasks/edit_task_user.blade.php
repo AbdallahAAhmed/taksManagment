@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-طلب جديد
+تعديل المهمة
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.index') }}" class="text-muted">الرئيسية</a>
+        <a href="{{ route('tasks') }}" class="text-muted">المهمات</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted">طلب جديد </a>
+        <a href="" class="text-muted">تعديل المهمة لمستخدم اخر </a>
     </li>
 </ul>
 @endsection
@@ -23,53 +23,35 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark"> طلب جديد</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">ارسال طلب للإدارة</span>
+                        <h3 class="card-label font-weight-bolder text-dark">تعديل المهمة </h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">تعديل المهمة</span>
                     </div>
-
                 </div>
 
-                <form action="{{ route('contacts.store') }}" method="POST" class="ajaxForm">
-                    {{-- @csrf --}}
+                <form action="{{ route('update_user_task',['id'=>$task->id]) }}" method="POST" class="ajaxForm">
                     {{csrf_field()}}
+                    <input type="hidden" name="_method" value="put" />
                     <div class="card-body">
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">بيانات الطلب</h5>
+                                <h5 class="font-weight-bold mb-6">إختيار مستخدم جديد للمهمة</h5>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">العنوان</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input class="form-control form-control-lg form-control-solid" id="title"
-                                    placeholder="العنوان" type="text" name="title">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">الرسالة</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <textarea name="message" placeholder="الرسالة" class="form-control" id="message" cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">القسم</label>
+                            <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
                             <div class="col-6">
-                                <select class="form-control select2" id="category_id" name="category_id">
-                                    <option disabled>القسم:</option>
-                                    @foreach($user_categories->categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                <select class="form-control select2 userbox" id="user_id" name="user_id">
+                                    @foreach ($category_user as $item)
+                                        <option value="{{ $item->id }}">{{ $item->username }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
                         <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">ارسال</button> <button
-                                type="reset" class="btn btn-secondary">إلغاء</button>
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">تعديل</button>
+                            <button type="reset" class="btn btn-secondary">إلغاء</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -82,14 +64,31 @@
 @endsection
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script>
     $(document).ready(function() {
+    $('#summernote').summernote({
+        height: 100, // set editor height
+        toolbar: [
+        [ 'style', [ 'style' ] ],
+        [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+        [ 'fontname', [ 'fontname' ] ],
+        [ 'fontsize', [ 'fontsize' ] ],
+        [ 'color', [ 'color' ] ],
+        [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+        [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+        ]
+    });
+    
     $(".ajaxForm").ajaxForm({
     success: function(json) {
     $(".ajaxForm :submit").prop("disabled", false);
     if (json.status == 1) {
     $('.ajaxForm').resetForm();
-    $('#category_id').val(null).trigger('change');
+    // $('#category_id').val(null).trigger('change');
+    $('#user_id').val(null).trigger('change');
+    // $('#project_id').val(null).trigger('change');
+    // $('#summernote').summernote('reset');
     ShowMessage(json.msg, "success", "ادارة المهام");
     // $('#password').val('');
     // $('#password_confirmation').val('');
@@ -124,7 +123,7 @@
     ShowMessage(errorsHtml, "error", "ادارة المهام");
     }
     });
-    
+
     });
    
 </script>

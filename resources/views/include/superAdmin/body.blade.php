@@ -77,7 +77,6 @@
 
 							@include("include.top_bar")
 
-
 						</div>
 						<!--end::Topbar-->
 					</div>
@@ -113,8 +112,6 @@
 							<div class="page-content-wrapper">
 								<!-- BEGIN CONTENT BODY -->
 								<div class="page-content">
-
-
 
 									<h1 class="page-title"> @yield("title")
 

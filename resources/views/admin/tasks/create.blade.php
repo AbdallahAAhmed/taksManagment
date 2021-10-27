@@ -92,7 +92,7 @@
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
                             <div class="col-6">
                                 <select class="form-control select2 userbox" id="user_id" name="user_id">
-
+                                    
                                 </select>
                             </div>
                         </div>
@@ -197,10 +197,12 @@
     $('#user_id').html("")
     $.each(response.data,function (index,value){
     $('#user_id').append("<option value='"+value.id+"'>"+value.username+"</option>")
+    $("#user_id").prepend("<option value='' selected='selected'></option>")
     });
     }else{
     $(".userbox").fadeOut();
     $('#user_id').html("")
+  
     }
     }
     })

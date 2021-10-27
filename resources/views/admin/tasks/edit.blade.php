@@ -87,15 +87,26 @@
                             </div>
                         </div>
 
+                        
+
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
+                            <div class="col-6">
+                                <select class="form-control select2" id="category_id" name="category_id">
+                                    <option selected disabled>القسم</option>
+                                    @foreach(App\Models\Category::all() as $category)
+                                    <option {{ ($category->id == $task->category_id) ? 'selected' : '' }}
+                                        value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
                             <div class="col-6">
-                                <select class="form-control select2" id="user_id" name="user_id">
-                                    <option selected disabled>الموظف</option>
-                                    @foreach(App\Models\User::all() as $user)
-                                    <option {{ ($user->id == $task->user_id) ? 'selected' : '' }} value="{{$user->id}}">{{$user->username}}</option>
-                                    @endforeach
+                                <select class="form-control select2 userbox" id="user_id" name="user_id">
+                        
                                 </select>
                             </div>
                         </div>
@@ -106,24 +117,13 @@
                                 <select class="form-control select2" id="project_id" name="project_id">
                                     <option selected disabled>المشروع</option>
                                     @foreach(App\Models\Project::all() as $project)
-                                    <option {{ ($project->id == $task->project_id) ? 'selected' : '' }} value="{{$project->id}}">{{$project->project_name}}</option>
+                                    <option {{ ($project->id == $task->project_id) ? 'selected' : '' }}
+                                        value="{{$project->id}}">{{$project->project_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
-                            <div class="col-6">
-                                <select class="form-control select2" id="category_id" name="category_id">
-                                    <option selected disabled>القسم</option>
-                                    @foreach(App\Models\Category::all() as $category)
-                                    <option {{ ($category->id == $task->category_id) ? 'selected' : '' }} value="{{$category->id}}">{{$category->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
+                       
                         <div class="card-toolbar" style="text-align: left">
                             <button type="submit" data-refresh="true" class="btn green btn-primary">تعديل</button>
                             <button type="reset" class="btn btn-secondary">إلغاء</button>
@@ -198,6 +198,30 @@
     ShowMessage(errorsHtml, "error", "ادارة المهام");
     }
     });
+
+  $(document).on('change','#category_id',function (){
+    var category_id = $(this).val();
+    $.ajax({
+    url:'/dashboard/tasks/category_users/'+category_id,
+    method:'get',
+    data:{
+    },
+    success:function (response){
+    if (response.status){
+    $(".userbox").fadeIn();
+    $('#user_id').html("")
+    $.each(response.data,function (index,value){
+    $('#user_id').append("<option value='"+value.id+"'>"+value.username+"</option>")
+    $("#user_id").prepend("<option value='' selected='selected'></option>")
+    });
+    }else{
+    $(".userbox").fadeOut();
+    $('#user_id').html("")
+    
+    }
+    }
+    })
+    })
     
     });
    
