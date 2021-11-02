@@ -66,9 +66,11 @@
                                     <option value="{{ $user->id }}">{{ $user->username }}</option>
                                     @endforeach
                                 </select>
-
                                 <button type="submit" id="filter" class="btn btn-sm btn-success btn-submit"
-                                    style="margin-right: 5px">بحث</button>
+                                    style="margin-right: 5px;display: none;">بحث</button>
+                                <button type="submit" id="reset_filter"
+                                    style="display: none; margin-right: 10px !important;"
+                                    class="btn btn-sm btn-info btn-submit pl-2" style="margin-right: 5px">تحديث</button>
                             </p>
 
                         </form>
@@ -117,7 +119,6 @@
 
 @include('include.dataTable_scripts')
 <script>
-  
     var oTable;
   $(function() {
 $(document).on("click", ".cbActive", function() {
@@ -150,7 +151,6 @@ BindDataTable();
 });
 BindDataTable();
 });
-
     //هذه تختلف حسب الصفحة
     function BindDataTable() {
         oTable = $('#tblAjax').DataTable({
@@ -286,7 +286,68 @@ BindDataTable();
             fnDrawCallback: function() {}
         });
     }
-    
 </script>
 
+<script>
+    $(document).ready(function() {
+       //filter by status
+       $('#status').on('change',function () {
+           var status = $("#status").val();
+           if(status != null && status != ''){
+                BindDataTable();
+                $("#reset_filter").css('display','block');
+                
+                $("#reset_filter").on('click',function() {
+                  $('#status').val(null).trigger('change');
+                $("#reset_filter").css('display','none');
+                });
+          }
+       }); 
+
+       //filter by category
+       $('#category_id').on('change',function () {
+        var category = $("#category_id").val();
+        if(category != null && category != ''){
+             BindDataTable();
+             $("#reset_filter").css('display','block');
+        
+        $("#reset_filter").on('click',function() {
+             $('#category_id').val(null).trigger('change');
+             $("#reset_filter").css('display','none');
+        });
+        }
+        });
+
+        //filter by user
+        $('#user_id').on('change',function () {
+            var user = $("#user_id").val();
+            if(user != null && user != ''){
+             BindDataTable();
+             $("#reset_filter").css('display','block');
+            
+            $("#reset_filter").on('click',function() {
+             $('#user_id').val(null).trigger('change');
+             $("#reset_filter").css('display','none');
+            });
+            }
+        });
+
+        //filter by project
+        $('#project_id').on('change',function () {
+          var project = $("#project_id").val();
+          if(project != null && project != ''){
+           BindDataTable();
+           $("#reset_filter").css('display','block');
+        
+        $("#reset_filter").on('click',function() {
+          $('#project_id').val(null).trigger('change');
+          $("#reset_filter").css('display','none');
+        });
+        }
+        });
+
+    });
+
+
+</script>
 @endsection()

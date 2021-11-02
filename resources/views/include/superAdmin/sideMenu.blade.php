@@ -189,7 +189,7 @@
 					</div>
 				</li>
 
-				{{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					<a href="{{ route('all_tasks') }}" class="menu-link menu-toggle">
 						<span class="svg-icon menu-icon">
 							<span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -205,12 +205,11 @@
 										<circle fill="#000000" opacity="0.3" cx="19" cy="6" r="1" />
 									</g>
 								</svg>
-								<!--end::Svg Icon-->
 							</span>
 							<span class="menu-text pl-2">تقارير</span>
-							{{-- <i class="menu-arrow"></i> --}}
+						 {{-- <i class="menu-arrow"></i>  --}}
 					</a>
-				</li> --}}
+				</li> 
 
 				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					<a href="{{ route('contacts') }}" class="menu-link menu-toggle">
