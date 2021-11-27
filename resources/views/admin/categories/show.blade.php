@@ -6,10 +6,10 @@
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('categories') }}" class="text-muted">الأقسام</a>
+        <a href="{{ route('categories') }}" class="text-muted">Categories</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> الموظفين </a>
+        <a href="" class="text-muted"> Users </a>
     </li>
 </ul>
 @endsection
@@ -18,7 +18,7 @@
 <div class="card-body pt-4">
     <!--begin::Item-->
     <div class="card-header border-0" style="padding-top: 15px !important">
-        <h3 class="card-title fw-bolder text-dark">الموظفين لهذا القسم</h3>
+        <h3 class="card-title fw-bolder text-dark">Users of this Category</h3>
     </div>
     @foreach ($category->users as $category_user)
     <div class="d-flex align-items-center">
@@ -27,9 +27,9 @@
             <img src="{{ asset('user-image.png') }}" class="img-fluid" alt="">
         </div>
         <div class="flex-grow-1">
-            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">الإسم :</span> {{
+            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">UserName :</span> {{
                 $category_user->username }}</a><br>
-            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">البريد الإلكتروني
+            <a class="text-dark fw-bolder text-hover-primary fs-6"><span style="font-weight: bolder">E-Mail
                     :</span> {{ $category_user->email }}</a><br>
         </div>
     </div><br>
@@ -40,7 +40,7 @@
 <div class="card-body pt-4">
     <!--begin::Item-->
     <div class="card-header border-0" style="padding-top: 15px !important">
-        <h3 class="card-title fw-bolder text-dark">مهام القسم</h3>
+        <h3 class="card-title fw-bolder text-dark">Category Tasks</h3>
     </div>
     <div class="row">
         <div class="col-sm-12">
@@ -49,10 +49,10 @@
                     <thead>
                         <tr>
                             <th width="1%">#</th>
-                            <th width="2%">المهمة</th>
-                            <th width="2%">تاريخ البداية</th>
-                            <th width="2%">تاريخ النهاية</th>
-                            <th width="2%">الحالة</th>
+                            <th width="2%">Task</th>
+                            <th width="2%">Start Date</th>
+                            <th width="2%">End Date</th>
+                            <th width="2%">Status</th>
                         </tr>
                     </thead>
                     <tbody>

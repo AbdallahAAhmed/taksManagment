@@ -90,14 +90,14 @@
             var item = this;
             Swal.fire({
             icon: 'warning',
-            title: 'هل أنت متأكد ؟',
-            text: "هل أنت متأكد من الحذف" ,
+            title: 'Are You Sure',
+            text: "Are you sure want to delete ?" ,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
-            cancelButtonText: 'إلغاء',
+            cancelButtonText: 'Cancel',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'نعم , إحذف'
+            confirmButtonText: 'Yes , Delete'
             }).then((result) => {
 
             if (result.isConfirmed) {
@@ -107,10 +107,10 @@
               data:{},
               success:function (response){
              if (response.status == 1) {
-                ShowMessage(response.msg, "success", "ادارة المهام");
+                ShowMessage(response.msg, "success", "TMS");
                 
                 } else {
-                ShowMessage(response.msg, "error", "ادارة المهام");
+                ShowMessage(response.msg, "error", "TMS");
                 }
                  BindDataTable();
             }
@@ -158,10 +158,10 @@
             $("#Confirm .btn-danger").click(function(e) {
                 $.get($("#Confirm .btn-danger").attr("href"), function(json) {
                     if (json.status == 1) {
-                        ShowMessage(json.msg, "success", "ادارة المهام");
+                        ShowMessage(json.msg, "success", "TMS");
 
                     } else {
-                        ShowMessage(json.msg, "error", "ادارة المهام");
+                        ShowMessage(json.msg, "error", "TMS");
                     }
                     BindDataTable();
                     // cDataTable();
@@ -185,7 +185,7 @@
                     $("#tblItems tbody tr").remove();
                     // $('.select2').val('').trigger('change.select2');
 
-                    ShowMessage(json.msg, "success", "ادارة المهام");
+                    ShowMessage(json.msg, "success", "TMS");
 
 
                     if (json.redirect != null)
@@ -210,7 +210,7 @@
 
                     }
                 } else {
-                    ShowMessage(json.msg, "error", "ادارة المهام");
+                    ShowMessage(json.msg, "error", "TMS");
                 }
                 if (json.redirect != null)
                     setTimeout(function() {
@@ -230,7 +230,7 @@
                     errorsHtml += '<li>' + value[0] + '</li>';
                 });
                 errorsHtml += "</ul>";
-                ShowMessage(errorsHtml, "error", "ادارة المهام");
+                ShowMessage(errorsHtml, "error", "TMS");
             }
         });
 
@@ -242,7 +242,7 @@
                     $('.ajaxFormss').resetForm();
                     // $('.select2').val('').trigger('change.select2');
 
-                    ShowMessage(json.msg, "success", "ادارة المهام");
+                    ShowMessage(json.msg, "success", "TMS");
 
 
                     if (json.redirect != null)
@@ -264,7 +264,7 @@
 
                     }
                 } else {
-                    ShowMessage(json.msg, "error", "ادارة المهام");
+                    ShowMessage(json.msg, "error", "TMS");
                 }
                 if (json.redirect != null)
                     setTimeout(function() {
@@ -284,7 +284,7 @@
                     errorsHtml += '<li>' + value[0] + '</li>';
                 });
                 errorsHtml += "</ul>";
-                ShowMessage(errorsHtml, "error", "ادارة المهام");
+                ShowMessage(errorsHtml, "error", "TMS");
             }
         });
 

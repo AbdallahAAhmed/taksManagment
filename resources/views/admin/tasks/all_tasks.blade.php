@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-المهمات
+Tasks
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.index') }}" class="text-muted">الرئيسية</a>
+        <a href="{{ route('dashboard.index') }}" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> جميع المهام </a>
+        <a href="" class="text-muted"> All Tasks </a>
     </li>
 </ul>
 @endsection
@@ -27,7 +27,7 @@
                     <span class="card-icon">
                         <i class="flaticon2-supermarket text-primary"></i>
                     </span>
-                    <h3 class="card-label">جميع المهام</h3>
+                    <h3 class="card-label">All Tasks</h3>
                 </div>
             </div>
             <div class="row">
@@ -38,14 +38,14 @@
                             <p class="col-sm-12 d-flex flex-row">
                                 <span class="ml-6 mr-3 mt-1"></span>
                                 <select name="status" id="status" class="form-control col-md-3 select2">
-                                    <option value="" id="disable-option">إختار الحالة</option>
-                                    <option value="completed">مكتملة</option>
-                                    <option value="inProgress">غير مكتملة</option>
+                                    <option value="" id="disable-option">Status</option>
+                                    <option value="completed">completed</option>
+                                    <option value="inProgress">InProgress</option>
                                 </select>
 
                                 <span class="ml-3 mr-3 mt-1"></span>
                                 <select name="category_id" id="category_id" class="form-control col-md-3 select2">
-                                    <option value="">إختار حسب القسم</option>
+                                    <option value="">Choose Category</option>
                                     @foreach (App\Models\Category::all() as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -53,7 +53,7 @@
 
                                 <span class="ml-3 mr-3 mt-1"></span>
                                 <select name="project_id" id="project_id" class="form-control select2 col-md-3">
-                                    <option value="">إختار حسب المشروع</option>
+                                    <option value="">Choose Project</option>
                                     @foreach (App\Models\Project::all() as $project)
                                     <option value="{{ $project->id }}">{{ $project->project_name }}</option>
                                     @endforeach
@@ -61,16 +61,16 @@
 
                                 <span class="ml-3 mr-3 mt-1"></span>
                                 <select name="user_id" id="user_id" class="form-control select2 col-md-3">
-                                    <option value="">إختار حسب المستخدم</option>
+                                    <option value="">Choose User</option>
                                     @foreach (App\Models\User::all() as $user)
                                     <option value="{{ $user->id }}">{{ $user->username }}</option>
                                     @endforeach
                                 </select>
                                 <button type="submit" id="filter" class="btn btn-sm btn-success btn-submit"
-                                    style="margin-right: 5px;display: none;">بحث</button>
+                                    style="margin-right: 5px;display: none;">filter</button>
                                 <button type="submit" id="reset_filter"
-                                    style="display: none; margin-right: 10px !important;"
-                                    class="btn btn-sm btn-info btn-submit pl-2" style="margin-right: 5px">تحديث</button>
+                                    style="display: none; margin-left: 10px !important;"
+                                    class="btn btn-sm btn-info btn-submit pl-2" style="margin-left: 5px">Reset</button>
                             </p>
 
                         </form>
@@ -85,17 +85,18 @@
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap table-bordered" id="tblAjax">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th width="1%">#</th>
-                                            <th width="1%">عنوان المهمة</th>
-                                            <th width="3%">تاريخ البداية</th>
-                                            <th width="3%">تاريخ النهاية</th>
-                                            <th width="3%">الموظف</th>
-                                            <th width="3%">القسم</th>
-                                            <th width="3%">المشروع</th>
-                                            <th width="3%">الحالة</th>
-                                            <th width="3%">إكمال المهمة</th>
+                                            <th width="1%">Task Title</th>
+                                            <th width="3%">Start date</th>
+                                            <th width="3%">End Date</th>
+                                            <th width="3%">Employee</th>
+                                            <th width="3%">Category</th>
+                                            <th width="3%">Project</th>
+                                            <th width="3%">Status</th>
+                                            <th width="3%">Actions</th>
                                         </tr>
+
                                     </thead>
                                 </table>
                             </div>
@@ -125,14 +126,14 @@ $(document).on("click", ".cbActive", function() {
 var id = $(this).val();
 Swal.fire({
 icon: 'warning',
-title: 'هل أنت متأكد ؟',
-text: "هل أنت متأكد من تعديل الحالة" ,
+title: 'Are You Sure ?',
+text: "Are you sure to change status" ,
 icon: 'warning',
 showCancelButton: true,
 confirmButtonColor: '#3085d6',
-cancelButtonText: 'إلغاء',
+cancelButtonText: 'cancel',
 cancelButtonColor: '#d33',
-confirmButtonText: 'نعم , عدل'
+confirmButtonText: 'yes , Change'
 }).then((result) => {
 
 if (result.isConfirmed) {
@@ -141,7 +142,7 @@ url: '/dashboard/tasks/activate/' + id ,
 method:'get',
 data:{},
 success:function (response){
-ShowMessage(response.msg, "success", "إدارة المهام");
+ShowMessage(response.msg, "success", "TMS");
 BindDataTable();
 }
 })
@@ -154,25 +155,7 @@ BindDataTable();
     //هذه تختلف حسب الصفحة
     function BindDataTable() {
         oTable = $('#tblAjax').DataTable({
-            "language": {
-            emptyTable:"لا يوجد بيانات لعرضها",
-            "sProcessing": "جارٍ التحميل...",
-            "sLengthMenu": "أظهر _MENU_ مدخلات",
-            "sZeroRecords": "لم يعثر على أية سجلات",
-            "sInfo": "إظهار _START_ إلى _END_ ",
-            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-            "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-            "sInfoPostFix": "",
-            "sSearch": "بحث:",
-            'selectedRow': 'مجمل المحدد',
-            "sUrl": "",
-            "oPaginate": {
-            "sFirst": "الأول",
-            "sPrevious": "السابق",
-            "sNext": "التالي",
-            "sLast": "الأخير",
-            }
-            },
+        
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
 
@@ -201,21 +184,21 @@ BindDataTable();
 			// <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
             
            dom: 'lBfrtip',
-                buttons: [
+                 buttons: [
 
                 { extend: 'print',
-                    text: 'طباعة الكل',
+                    text: 'Print All',
                     customize: function (win) {
-                    $(win.document.body).css('direction', 'rtl');
+                    $(win.document.body).css('direction', 'ltr');
                     },
                     exportOptions: {
                     columns: ':visible' }},
 
                    { extend: 'colvis',
-                    text: ' تحديد الأعمدة'},
+                    text: ' Select Columns'},
                    
                     {extend: 'excelHtml5',
-                    text: 'طباعة أكسل',
+                    text: 'Print Excel',
                     exportOptions: {
                     columns: ':visible', }},
                     ],

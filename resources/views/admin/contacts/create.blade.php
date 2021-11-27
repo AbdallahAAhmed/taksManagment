@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-طلب جديد
+New Contact
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.index') }}" class="text-muted">الرئيسية</a>
+        <a href="{{ route('dashboard.index') }}" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted">طلب جديد </a>
+        <a href="" class="text-muted">New Contact </a>
     </li>
 </ul>
 @endsection
@@ -23,10 +23,9 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark"> طلب جديد</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">ارسال طلب للإدارة</span>
+                        <h3 class="card-label font-weight-bolder text-dark"> New Contact</h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">Sending To head of TMS</span>
                     </div>
-
                 </div>
 
                 <form action="{{ route('contacts.store') }}" method="POST" class="ajaxForm">
@@ -36,30 +35,30 @@
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">بيانات الطلب</h5>
+                                <h5 class="font-weight-bold mb-6">Contact Information</h5>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">العنوان</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Title</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" id="title"
-                                    placeholder="العنوان" type="text" name="title">
+                                    placeholder="title" type="text" name="title">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">الرسالة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Message</label>
                             <div class="col-lg-9 col-xl-6">
-                                <textarea name="message" placeholder="الرسالة" class="form-control" id="message" cols="30" rows="10"></textarea>
+                                <textarea name="message" placeholder="Message" class="form-control" id="message" cols="30" rows="10"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">القسم</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Category</label>
                             <div class="col-6">
                                 <select class="form-control select2" id="category_id" name="category_id">
-                                    <option disabled>القسم:</option>
+                                    <option disabled>Category:</option>
                                     @foreach($user_categories->categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
@@ -68,8 +67,8 @@
                         </div>
 
                         <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">ارسال</button> <button
-                                type="reset" class="btn btn-secondary">إلغاء</button>
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">Send</button> <button
+                                type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -90,7 +89,7 @@
     if (json.status == 1) {
     $('.ajaxForm').resetForm();
     $('#category_id').val(null).trigger('change');
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     // $('#password').val('');
     // $('#password_confirmation').val('');
     if (json.redirect != null)
@@ -102,7 +101,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -121,7 +120,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
     

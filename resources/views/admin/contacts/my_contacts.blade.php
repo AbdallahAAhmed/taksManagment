@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-طلباتي
+My Contacts
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.index') }}" class="text-muted">الرئيسية</a>
+        <a href="{{ route('dashboard.index') }}" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> طلباتي </a>
+        <a href="" class="text-muted"> My Contacts </a>
     </li>
 </ul>
 @endsection
@@ -25,7 +25,7 @@
                     <span class="card-icon">
                         <i class="flaticon2-supermarket text-primary"></i>
                     </span>
-                    <h3 class="card-label">طلباتي</h3>
+                    <h3 class="card-label">My Contacts</h3>
                 </div>
             </div>
 
@@ -37,13 +37,13 @@
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap table-bordered" id="tblAjax">
                                     <thead>
-                                        <tr>
+                                    <tr>
                                             <th width="1%">#</th>
-                                            <th width="3%">عنوان الطلب</th>
-                                            <th width="3%">القسم</th>
-                                            <th width="3%">الحالة</th>
-                                            <th width="3%">تاريخ الإضافة</th>
-                                            <th width="3%">إجراءات</th>
+                                            <th width="3%">Contact Title</th>
+                                            <th width="3%">Category</th>
+                                            <th width="3%">Status</th>
+                                            <th width="3%">Created Date</th>
+                                            <th width="3%">Actions</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -76,28 +76,8 @@
     //هذه تختلف حسب الصفحة
     function BindDataTable() {
         oTable = $('#tblAjax').DataTable({
-            "language": {
-            emptyTable:"لا يوجد بيانات لعرضها",
-            "sProcessing": "جارٍ التحميل...",
-            "sLengthMenu": "أظهر _MENU_ مدخلات",
-            "sZeroRecords": "لم يعثر على أية سجلات",
-            "sInfo": "إظهار _START_ إلى _END_ ",
-            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-            "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-            "sInfoPostFix": "",
-            "sSearch": "بحث:",
-            'selectedRow': 'مجمل المحدد',
-            "sUrl": "",
-            "oPaginate": {
-            "sFirst": "الأول",
-            "sPrevious": "السابق",
-            "sNext": "التالي",
-            "sLast": "الأخير",
-            }
-            },
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-
            "paging": true,
             "lengthChange": true,
             "searching": false,
@@ -126,6 +106,26 @@
                 targets: 0,
                 visible: true
             }],
+
+             dom: 'lBfrtip',
+              buttons: [
+
+                { extend: 'print',
+                    text: 'Print All',
+                    customize: function (win) {
+                    $(win.document.body).css('direction', 'ltr');
+                    },
+                    exportOptions: {
+                    columns: ':visible' }},
+
+                   { extend: 'colvis',
+                    text: ' Select Columns'},
+                   
+                    {extend: 'excelHtml5',
+                    text: 'Print Excel',
+                    exportOptions: {
+                    columns: ':visible', }},
+                    ],
 
             "order": [
                 [0, "asc"]

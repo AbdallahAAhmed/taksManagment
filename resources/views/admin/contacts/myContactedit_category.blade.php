@@ -5,10 +5,10 @@
             <input type="hidden" name="_method" value="put">
 
             <div class="form-group row">
-                <label class="col-xl-3 col-lg-3 col-form-label text-right">القسم</label>
+                <label class="col-xl-3 col-lg-3 col-form-label text-right">Category</label>
                 <div class="col-8">
                     <select class="form-control select2" id="category_id" name="category_id">
-                        <option disabled>القسم:</option>
+                        <option disabled>Category:</option>
                         @foreach(App\Models\Category::all() as $category)
                         <option {{ ($category->id == $contact->category_id) ? 'selected' : '' }}
                             value="{{$category->id}}">{{$category->name}}</option>
@@ -19,8 +19,8 @@
 
 
             <div class="col-sm-8 offset-sm-4">
-                <button type="submit" data-refresh="true" class="btn green btn-primary">حفظ</button>
-                <a class="btn btn-default " data-dismiss="modal">الغاء الأمر</a>
+                <button type="submit" data-refresh="true" class="btn green btn-primary">Save</button>
+                <a class="btn btn-default " data-dismiss="modal">Cancel</a>
             </div>
     </div>
 

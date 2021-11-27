@@ -1,7 +1,7 @@
 <div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
 	<!--begin::Header-->
 	<div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
-		<h3 class="font-weight-bold m-0">الحساب الشخصي
+		<h3 class="font-weight-bold m-0">My Account
 			<a href="" class="btn btn-xs btn-icon btn-light btn-hover-primary " id="kt_quick_user_close">
 				<i class="ki ki-close icon-xs text-muted "></i>
 			</a>
@@ -20,7 +20,7 @@
 		<div class="d-flex flex-column">
 			<a href="{{ route('profile.show',Auth::user()->id) }}"
 				class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->username }}</a>
-			<div class="text-muted mt-1">نظام ادارة المهام</div>
+			<div class="text-muted mt-1">Task Managment System</div>
 			<div class="navi mt-2">
 				<a href="#" class="navi-item">
 					<span class="navi-link p-0 pb-2">
@@ -35,8 +35,8 @@
 				</a>
 				<a href="{{ route('user.logout') }}"
 					onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-					class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5"><i class="fa fa-logout"></i>سجل
-					خروج
+					class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5"><i class="fa fa-logout"></i>
+						Logout
 					<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
 						@csrf
 					</form>

@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-جميع المستخدمين
+Users
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> المستخدمين </a>
+        <a href="" class="text-muted"> Users </a>
     </li>
 </ul>
 @endsection
@@ -22,14 +22,14 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-label">المستخدمين
-                        <span class="d-block text-muted pt-2 font-size-sm">عرض جميع &amp; المستخدمين</span>
+                    <h3 class="card-label">Users
+                        <span class="d-block text-muted pt-2 font-size-sm">Show &amp; Users</span>
                     </h3>
                 </div>
        <div class="card-toolbar">
 
 
-    <a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder Popup" title="إضافة مستخدم">
+    <a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder Popup" title="New User">
         <span class="svg-icon svg-icon-md">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -43,7 +43,7 @@
                 </g>
             </svg>
             <!--end::Svg Icon-->
-        </span>إضافة مستخدم </a>
+        </span>New User </a>
 
 </div>
             </div>
@@ -58,12 +58,12 @@
                                     <thead>
                                         <tr>
                                             <th width="1%">#</th>
-                                            <th width="3%">المستخدم</th>
-                                            <th width="3%">الإيميل</th>
-                                            <th width="3%">الهاتف</th>
-                                            <th width="3%">الدور</th>
-                                            <th width="3%">تاريخ الإضافة</th>
-                                            <th width="3%">إجراءات</th>
+                                            <th width="3%">User</th>
+                                            <th width="3%">Email</th>
+                                            <th width="3%">Phone</th>
+                                            <th width="3%">Role</th>
+                                            <th width="3%">Created Date</th>
+                                            <th width="3%">Actions</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -97,25 +97,6 @@
     //هذه تختلف حسب الصفحة
     function BindDataTable() {
         oTable = $('#tblAjax').dataTable({
-            language: {
-                aria: {
-                    sortAscending: ": فعال لترتيب العمود تصاعديا",
-                    sortDescending: ": فعال لترتيب العمود تنازليا"
-                },
-                emptyTable: "لا يوجد بيانات لعرضها",
-                info: "عرض _START_ الى _END_ من _TOTAL_ صف",
-                infoEmpty: "لا يوجد نتائج لعرضها",
-                infoFiltered: "(filtered1 من _MAX_ اجمالي صفوف)",
-                lengthMenu: "_MENU_ صف",
-                search: "بحث",
-                zeroRecords: "لا يوجد نتائج لعرضها",
-                paginate: {
-                    sFirst: "الاول",
-                    sLast: "الاخير",
-                    sNext: "التالي",
-                    sPrevious: "السابق"
-                }
-            },
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
 
@@ -150,18 +131,18 @@
                 buttons: [
 
                 { extend: 'print',
-                    text: 'طباعة الكل',
+                    text: 'Print All',
                     customize: function (win) {
-                    $(win.document.body).css('direction', 'rtl');
+                    $(win.document.body).css('direction', 'ltr');
                     },
                     exportOptions: {
                     columns: ':visible' }},
 
                    { extend: 'colvis',
-                    text: ' تحديد الأعمدة'},
+                    text: ' Select Columns'},
                    
                     {extend: 'excelHtml5',
-                    text: 'طباعة أكسل',
+                    text: 'Print Excel',
                     exportOptions: {
                     columns: ':visible', }},
                     ],

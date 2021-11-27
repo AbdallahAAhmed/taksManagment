@@ -41,15 +41,6 @@ class CategoriesController extends Controller
                 'icon' => 'nullable|image',
                 'users' => 'required',
             ],
-            [
-                'name.required' => 'القسم مطلوب',
-                'name.string' => 'القسم يجب ان يكون قيمة نصية',
-                'name.max' => 'القسم يجب الا يتعدي 255 حرف',
-                'name.min' => 'يجب كتابة 3 احرف على الأقل',
-                'name.unique' => 'القسم موجود مسبقآ',
-                'users.required' => 'حقل الموظفين مطلوب',
-                'icon.image' => 'الإيقونة يجب ان تكون صورة بصيغة jpg|png|jpeg',
-            ]
         );
         date_default_timezone_set('Asia/Hebron');
         unset($request['_token']);
@@ -68,10 +59,10 @@ class CategoriesController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
-            return response()->json(['status' => 2, "msg" => 'حدث خطأ في ادخال البيانات']);
+            return response()->json(['status' => 2, "msg" => 'Somthing Went Wrong']);
         }
 
-        return response()->json(['status' => 1, "msg" => "تم إضافة القسم \"$category->name\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Category \"$category->name\" Added Succesfully"]);
     }
 
     public function AjaxDT(Request $request)
@@ -86,9 +77,9 @@ class CategoriesController extends Controller
 
             return  DataTables::of($categories)
                 ->addColumn('actions', function ($categories) {
-                    return '<a href="/dashboard/categories/edit/' . $categories->id . '" class="Popup" data-toggle="modal"  data-id="' . $categories->id . '"title="تعديل الصنف"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
+                    return '<a href="/dashboard/categories/edit/' . $categories->id . '" class="Popup" data-toggle="modal"  data-id="' . $categories->id . '"title="Edit Category"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
                             <a href="/dashboard/categories/delete/' . $categories->id . '" data-id="' . $categories->id . '" class="ConfirmLink "' . ' id="' . $categories->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>
-                            <a href="/dashboard/categories/show/' . $categories->id . '" data-id="' . $categories->id . '" title="عرض الموظفين في هذا القسم"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>';
+                            <a href="/dashboard/categories/show/' . $categories->id . '" data-id="' . $categories->id . '" title="Show users of this category"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>';
                 })->addColumn('icon', function ($categories) {
                     $url = asset('images/categories/icon/' . $categories->icon);
                     return '<img src="' . $url . '" border="0" style="border-radius: 10px;" width="40" class="img-rounded" align="center" />';
@@ -112,7 +103,7 @@ class CategoriesController extends Controller
     {
         $category = Category::where('id', $id)->first();
         if ($category == null) {
-            abort(404, 'القسم غير موجود');
+            abort(404, 'Not Found');
         }
         return view('admin.categories.edit', compact('category'));
     }
@@ -126,15 +117,6 @@ class CategoriesController extends Controller
                 'icon' => 'nullable|image',
                 'users' => 'required',
             ],
-            [
-                'name.required' => 'القسم مطلوب',
-                'name.string' => 'القسم يجب ان يكون قيمة نصية',
-                'name.max' => 'القسم يجب الا يتعدي 255 حرف',
-                'name.min' => 'يجب كتابة 3 احرف على الأقل',
-                'name.unique' => 'القسم موجود مسبقآ',
-                'users.required' => 'حقل الموظفين مطلوب',
-                'icon.image' => 'الإيقونة يجب ان تكون صورة بصيغة jpg|png|jpeg',
-            ]
         );
 
         $category = Category::where('id', $id)->first();
@@ -161,9 +143,9 @@ class CategoriesController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
-            return response()->json(['status' => 2, "msg" => 'حدث خطأ في ادخال البيانات']);
+            return response()->json(['status' => 2, "msg" => 'Error Entered Data']);
         }
-        return response()->json(['status' => 1, "msg" => "تم تعديل القسم \"$category->name\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Category \"$category->name\" Updated Succesfully"]);
     }
 
     public function delete($id)
@@ -186,8 +168,8 @@ class CategoriesController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
-            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+            return response()->json(['status' => 0, "msg" => "Somthing Went Wrong"]);
         }
-        return response()->json(['status' => 1, "msg" => "تم حذف القسم \"$category->name\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Category \"$category->name\" deleted Succesfully"]);
     }
 }

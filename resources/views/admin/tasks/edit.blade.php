@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-تعديل المهمة
+Edit Task
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('tasks') }}" class="text-muted">المهمات</a>
+        <a href="{{ route('tasks') }}" class="text-muted">Tasks</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted">تعديل المهمة  </a>
+        <a href="" class="text-muted">Edit Task  </a>
     </li>
 </ul>
 @endsection
@@ -26,8 +26,8 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark">تعديل المهمة | {{ $task->task_name }}</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">تعديل المهمة</span>
+                        <h3 class="card-label font-weight-bolder text-dark">Edit Task | {{ $task->task_name }}</h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">Edit Task</span>
                     </div>
                 </div>
 
@@ -38,28 +38,28 @@
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">تعديل بيانات المهمة |Edit task Information</h5>
+                                <h5 class="font-weight-bold mb-6">Edit task Information</h5>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إسم المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Task name</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" id="task_name"
-                                    placeholder="الإسم" value="{{ $task->task_name }}" type="text" name="task_name">
+                                    placeholder="Task name" value="{{ $task->task_name }}" type="text" name="task_name">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">وصف عام</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Description</label>
                             <div class="col-lg-9 col-xl-6">
-                                <textarea name="task_description" placeholder="وصف عام" class="form-control"
+                                <textarea name="task_description" placeholder="Description" class="form-control"
                                    cols="30" rows="10">{{ $task->task_description }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ بداية المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Start Date</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input style="text-align: center" value="{{ $task->start_date }}"
                                     class="form-control form-control-lg form-control-solid" id="start_date" type="date"
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ نهاية المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">End Date</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input style="text-align: center" value="{{ $task->end_date }}"
                                     class="form-control form-control-lg form-control-solid" id="end_date" type="date"
@@ -77,10 +77,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">الحالة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Status</label>
                             <div class="col-6">
                                 <select class="form-control" id="status" name="status">
-                                    <option selected disabled>الحالة</option>
+                                    <option selected disabled>Status</option>
                                     <option {{ $task->status == 'inProgress' ? 'selected' : '' }} value="inProgress">inProgress</option>
                                     <option {{ $task->status == 'completed' ? 'selected' : '' }} value="completed">completed</option>
                                 </select>
@@ -90,7 +90,7 @@
                         
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
+                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose Category</label>
                             <div class="col-6">
                                 <select class="form-control select2" id="category_id" name="category_id">
                                     <option selected disabled>القسم</option>
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
+                           <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose User</label>
                             <div class="col-6">
                                 <select class="form-control select2 userbox" id="user_id" name="user_id">
                         
@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر المشروع</label>
+                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose Project</label>
                             <div class="col-6">
                                 <select class="form-control select2" id="project_id" name="project_id">
                                     <option selected disabled>المشروع</option>
@@ -124,9 +124,9 @@
                             </div>
                         </div>
                        
-                        <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">تعديل</button>
-                            <button type="reset" class="btn btn-secondary">إلغاء</button>
+                        <div class="card-toolbar" style="text-align: right">
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">Update</button>
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -164,7 +164,7 @@
     // $('#user_id').val(null).trigger('change');
     // $('#project_id').val(null).trigger('change');
     // $('#summernote').summernote('reset');
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     // $('#password').val('');
     // $('#password_confirmation').val('');
     if (json.redirect != null)
@@ -176,7 +176,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -195,7 +195,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
 

@@ -38,10 +38,10 @@ class ContactController extends Controller
 
             return  DataTables::of($contacts)
                 ->addColumn('actions', function ($contacts) {
-                    return '<a href="/dashboard/contacts/edit/' . $contacts->id . '" class="Popup" data-toggle="modal"  data-id="' . $contacts->id . '"title="تغيير القسم"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
+                    return '<a href="/dashboard/contacts/edit/' . $contacts->id . '" class="Popup" data-toggle="modal"  data-id="' . $contacts->id . '"title="edit category"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
                             <a href="/dashboard/contacts/delete/' . $contacts->id . '" data-id="' . $contacts->id . '" class="ConfirmLink "' . ' id="' . $contacts->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>';
                 })->editColumn('status', function ($contacts) {
-                    return ($contacts->status == 1) ? "<span class='badge badge-primary'>تمت معالجة الطلب</span>" : "<span class='badge badge-success'>قيد المعالجة</span>";
+                    return ($contacts->status == 1) ? "<span class='badge badge-primary'>Contact Completed</span>" : "<span class='badge badge-success'>Contact in progress</span>";
                 })->editColumn('message', function ($contacts) {
                     return view('admin.contacts.message', compact('contacts'));
                 })->addColumn('change_status', function ($contacts) {
@@ -65,15 +65,6 @@ class ContactController extends Controller
                 'message' => 'required|min:8|max:255',
                 'category_id' => 'required|integer',
             ],
-            [
-                'title.required' => 'عنوان الطلب مطلوب',
-                'message.required' => 'نص الرسالة مطلوب',
-                'title.min' => 'عنوان الطلب: يجب كتابة 6 أحرف على الأقل',
-                'message.min' => 'الرسالة: يجب كتابة 6 أحرف على الأقل',
-                'message.max' => 'الحد الأعلى المسموح للأحرف 255',
-                'category_id.required' => 'القسم مطلوب',
-                'category_id.integer' => 'القسم يجب ان يكون قيمة رقمية صحيحة',
-            ]
         );
 
         date_default_timezone_set('Asia/Hebron');
@@ -86,14 +77,14 @@ class ContactController extends Controller
         $updated_at = Carbon::now();
         $created_at = Carbon::now();
         DB::insert('insert into contacts (title,message,category_id,user_id,created_at,updated_at) values (?,?,?,?,?,?)', [$title, $message, $category_id, $user_id, $created_at, $updated_at]);
-        return response()->json(['status' => 1, "msg" => "تم ارسال الطلب \"$title\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Contact  \"$title\" Send Success"]);
     }
 
     public function edit($id)
     {
         $contact = $this->editContactData($id);
         if (!$contact) {
-            abort(404, 'الطلب غير موجود');
+            abort(404, 'not found');
         }
         return view('admin.contacts.edit_category', compact('contact'));
     }
@@ -118,9 +109,9 @@ class ContactController extends Controller
 
             return  DataTables::of($my_contact)
                 ->addColumn('actions', function ($my_contact) {
-                    return '<a href="/dashboard/contacts/edit-myContact/' . $my_contact->id . '" class="Popup" data-toggle="modal"  data-id="' . $my_contact->id . '"title="تغيير القسم"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
+                    return '<a href="/dashboard/contacts/edit-myContact/' . $my_contact->id . '" class="Popup" data-toggle="modal"  data-id="' . $my_contact->id . '"title="edit category"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
                 })->editColumn('status', function ($my_contact) {
-                    return ($my_contact->status == 1) ? "<span class='badge badge-primary'>تمت معالجة الطلب</span>" : "<span class='badge badge-success'>قيد المعالجة</span>";
+                    return ($my_contact->status == 1) ? "<span class='badge badge-primary'>Contact Completed </span>" : "<span class='badge badge-success'>Contact in progress</span>";
                 })->rawColumns(['actions', 'status'])->make(true);
         }
     }
@@ -129,7 +120,7 @@ class ContactController extends Controller
     {
         $contact = $this->editContactData($id);
         if (!$contact) {
-            abort(404, 'الطلب غير موجود');
+            abort(404, 'not found');
         }
         return view('admin.contacts.myContactedit_category', compact('contact'));
     }
@@ -138,9 +129,9 @@ class ContactController extends Controller
     {
         $result = $this->UpdateContactData($request, $id);
         if ($result) {
-            return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+            return response()->json(['status' => 1, "msg" => "Category Updated"]);
         } else {
-            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+            return response()->json(['status' => 0, "msg" => "Somthing went wrong"]);
         }
     }
 
@@ -148,9 +139,9 @@ class ContactController extends Controller
     {
         $result = $this->UpdateContactData($request, $id);
         if ($result) {
-            return response()->json(['status' => 1, "msg" => "تم تغير القسم بنجاح"]);
+            return response()->json(['status' => 1, "msg" => "Category Updated"]);
         } else {
-            return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+            return response()->json(['status' => 0, "msg" => "Somthing went wrong"]);
         }
     }
 
@@ -159,7 +150,7 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         $contact->status = $contact->status == 1 ? '0' : '1';
         $contact->save();
-        return response()->json(['status' => 1, "msg" => "تم تعديل حالة الطلب بنجاح"/*,"redirect"=>"/unit"*/]);
+        return response()->json(['status' => 1, "msg" => "Contact Status updated"/*,"redirect"=>"/unit"*/]);
     }
 
     public function delete($id)
@@ -168,7 +159,7 @@ class ContactController extends Controller
         if ($contact) {
             $contact->delete();
         }
-        return response()->json(['status' => 1, "msg" => "تم حذف الطلب \"$contact->title\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Contact \"$contact->title\" deleted"]);
     }
 
     protected function editContactData($id)

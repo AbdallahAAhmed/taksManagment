@@ -27,7 +27,7 @@
 				style="background-image: url(/assets/media/misc/bg-1.jpg)">
 				<!--begin::Title-->
 				<h4 class="d-flex flex-center rounded-top">
-					<span class="text-white">لديك مهمات جديدة غير مكتملة</span>
+					<span class="text-white">You have UnCompleted Tasks</span>
 					<span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">{{$myTasks->count()}} جديدة</span>
 				</h4>
 				<!--end::Title-->
@@ -36,7 +36,7 @@
 					role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active show" data-toggle="tab"
-							href="#topbar_notifications_notifications">تنبيه</a>
+							href="#topbar_notifications_notifications">alert</a>
 					</li>
 				</ul>
 				<!--end::Tabs-->

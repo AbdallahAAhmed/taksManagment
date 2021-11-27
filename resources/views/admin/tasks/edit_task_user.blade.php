@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-تعديل المهمة
+Edit Task
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('tasks') }}" class="text-muted">المهمات</a>
+        <a href="{{ route('tasks') }}" class="text-muted">Tasks</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted">تعديل المهمة لمستخدم اخر </a>
+        <a href="" class="text-muted">Edit Task To anther User </a>
     </li>
 </ul>
 @endsection
@@ -23,8 +23,8 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark">تعديل المهمة </h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">تعديل المهمة</span>
+                        <h3 class="card-label font-weight-bolder text-dark">Edit Task </h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">Edit Task</span>
                     </div>
                 </div>
 
@@ -35,11 +35,11 @@
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">إختيار مستخدم جديد للمهمة</h5>
+                                <h5 class="font-weight-bold mb-6">Choose New User</h5>
                             </div>
                         </div>
                             <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose User</label>
                             <div class="col-6">
                                 <select class="form-control select2 userbox" id="user_id" name="user_id">
                                     @foreach ($category_user as $item)
@@ -50,8 +50,8 @@
                         </div>
 
                         <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">تعديل</button>
-                            <button type="reset" class="btn btn-secondary">إلغاء</button>
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">Update</button>
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -89,7 +89,7 @@
     $('#user_id').val(null).trigger('change');
     // $('#project_id').val(null).trigger('change');
     // $('#summernote').summernote('reset');
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     // $('#password').val('');
     // $('#password_confirmation').val('');
     if (json.redirect != null)
@@ -101,7 +101,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -120,7 +120,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
 

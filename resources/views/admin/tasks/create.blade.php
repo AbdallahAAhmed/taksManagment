@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-إضافة مهمة
+New Task
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.index') }}" class="text-muted">الرئيسية</a>
+        <a href="{{ route('dashboard.index') }}" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted">مهمة جديدة </a>
+        <a href="" class="text-muted">New Task </a>
     </li>
 </ul>
 @endsection
@@ -26,8 +26,8 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark">مهمة جديدة</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">تعين مهمة جديدة</span>
+                        <h3 class="card-label font-weight-bolder text-dark">New Task</h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">Set New Task</span>
                     </div>
 
                 </div>
@@ -38,28 +38,28 @@
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">بيانات المهمة | Task Information</h5>
+                                <h5 class="font-weight-bold mb-6">Task Information</h5>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إسم المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Task Name</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" id="task_name"
-                                    placeholder="الإسم" type="text" name="task_name">
+                                    placeholder="Task Name" type="text" name="task_name">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">وصف عام</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Description</label>
                             <div class="col-lg-9 col-xl-6">
-                                <textarea name="task_description" placeholder="وصف عام" class="form-control" cols="30"
+                                <textarea name="task_description" placeholder="Description" class="form-control" cols="30"
                                     rows="10"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ بداية المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Start Date</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input style="text-align: center"
                                     class="form-control form-control-lg form-control-solid" id="start_date" type="date"
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تاريخ نهاية المهمة</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">End Date</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input style="text-align: center"
                                     class="form-control form-control-lg form-control-solid" id="end_date" type="date"
@@ -77,10 +77,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر القسم</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose Category</label>
                             <div class="col-6">
                                 <select class="form-control select2" id="category_id" name="category_id">
-                                    <option selected disabled value="">القسم</option>
+                                    <option selected disabled value="">Category</option>
                                     @foreach(App\Models\Category::all() as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر الموظف</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose User</label>
                             <div class="col-6">
                                 <select class="form-control select2 userbox" id="user_id" name="user_id">
                                     
@@ -98,10 +98,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">إختر المشروع</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Choose Project</label>
                             <div class="col-6">
                                 <select class="form-control select2" id="project_id" name="project_id">
-                                    <option selected disabled value="">المشروع</option>
+                                    <option selected disabled value="">Project</option>
                                     @foreach(App\Models\Project::all() as $project)
                                     <option value="{{$project->id}}">{{$project->project_name}}</option>
                                     @endforeach
@@ -109,9 +109,9 @@
                             </div>
                         </div>
 
-                        <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">ارسال</button>
-                            <button type="reset" class="btn btn-secondary">إلغاء</button>
+                        <div class="card-toolbar" style="text-align: right">
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">Send</button>
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -149,7 +149,7 @@
     $('#user_id').val(null).trigger('change');
     $('#project_id').val(null).trigger('change');
     $('#summernote').summernote('reset');
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     // $('#password').val('');
     // $('#password_confirmation').val('');
     if (json.redirect != null)
@@ -161,7 +161,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -180,7 +180,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
 

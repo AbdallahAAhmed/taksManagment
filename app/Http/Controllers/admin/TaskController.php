@@ -42,9 +42,9 @@ class TaskController extends Controller
 
             return  DataTables::of($tasks)
                 ->addColumn('actions', function ($tasks) {
-                    return '<a href="/dashboard/tasks/edit/' . $tasks->id . '"   data-id="' . $tasks->id . '"title="تعديل المهمة"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
+                    return '<a href="/dashboard/tasks/edit/' . $tasks->id . '"   data-id="' . $tasks->id . '"title="Edit Task"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
                 })->editColumn('status', function ($tasks) {
-                    return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>المهمة قيد العمل</span>" : "<span class='badge badge-success'>المهمة مكتملة بنجاح</span>";
+                    return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>Task inProgress</span>" : "<span class='badge badge-success'>Task Completed</span>";
                 })->addColumn('change_status', function ($tasks) {
                     return '<input type="checkbox" class="cbActive"  ' . ($tasks->status == "completed" ? "checked" : "") . '  name="status" value="' . $tasks->id . '"/>';
                 })->rawColumns(['actions', 'status', 'change_status'])->make(true);
@@ -68,8 +68,8 @@ class TaskController extends Controller
          
          return DataTables::of($tasks)
         ->editColumn('status', function ($tasks) {
-         return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>المهمة قيد العمل</span>" : "<span
-             class='badge badge-success'>المهمة مكتملة بنجاح</span>";
+         return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>Task inProgress</span>" : "<span
+             class='badge badge-success'>Task Completed</span>";
          })->addColumn('change_status', function ($tasks) {
          return '<input type="checkbox" class="cbActive" ' . ($tasks->status == "completed" ? "checked" : "") . '
              name="status" value="' . $tasks->id . '" />';
@@ -94,7 +94,7 @@ class TaskController extends Controller
                 ->addColumn('actions', function ($tasks) {
                     return '<a href="/dashboard/tasks/delete/' . $tasks->id . '" data-id="' . $tasks->id . '" class="ConfirmLink "' . ' id="' . $tasks->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>';
                 })->editColumn('status', function ($tasks) {
-                    return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>المهمة قيد العمل</span>" : "<span class='badge badge-success'>المهمة مكتملة بنجاح</span>";
+                    return ($tasks->status == "inProgress") ? "<span class='badge badge-primary'>ask inProgress</span>" : "<span class='badge badge-success'>Task Completed</span>";
                 })->rawColumns(['actions', 'status'])->make(true);
         }
     }
@@ -118,10 +118,10 @@ class TaskController extends Controller
 
             return DataTables::of($task)
                 ->addColumn('actions', function ($task) {
-                    return '<a href="/dashboard/tasks/show/' . $task->id . '"   data-id="' . $task->id . '"title="عرض بيانات مفصلة عن المهمة"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>
+                    return '<a href="/dashboard/tasks/show/' . $task->id . '"   data-id="' . $task->id . '"title="Show more details"><i class="fas fa-align-justify pl-2" style="color:#28B463"></i></a>
                             <a href="/dashboard/tasks/edit-user-task/' . $task->id . '" data-id="' . $task->id . '" title="تعديل المهمة"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>';
                 })->editColumn('status', function ($task) {
-                    return  "<span class='badge badge-primary'>المهمة قيد العمل</span>";
+                    return  "<span class='badge badge-primary'>Task inProgress</span>";
                 })->addColumn('change_status', function ($task) {
                     return '<input type="checkbox" class="cbActive"' . ($task->status == "completed" ? "checked" : "") . '  name="status" value="' . $task->id . '"/>';
                 })->rawColumns(['actions', 'status', 'change_status'])->make(true);
@@ -146,9 +146,9 @@ class TaskController extends Controller
         DB::table('tasks')
         ->where('id', $id)
         ->update(['user_id' => $user_id]);
-          return response()->json(['status' => 1, "msg" => "تم تعين مستخدم جديد للمهمة"]);
+          return response()->json(['status' => 1, "msg" => "New User Set to task"]);
         } catch (\Throwable $th) {
-          return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+          return response()->json(['status' => 0, "msg" => "Error"]);
         }
     }
 
@@ -191,30 +191,18 @@ class TaskController extends Controller
                 'project_id' => 'required|exists:projects,id',
                 'category_id' => 'required|exists:categories,id',
             ],
-            [
-                'task_name.required' => 'اسم المهمة مطلوب',
-                'start_date.required' => 'تاريخ بداية المهمة مطلوب',
-                'end_date.required' => 'تاريخ نهاية المهمة مطلوب',
-                'task_description.required' => 'وصف المهمة مطلوب',
-                'project_id.required' => 'المشروع مطلوب',
-                'start_date.date' => 'تاريخ البداية يجب ان يكون تاريخ',
-                'end_date' => 'تاريخ النهاية يجب ان يكون تاريخ',
-                'task_description.min' => 'الوصف يجب ان يتكون من 6 على الأقل',
-                'task_description.max' => 'الحد المسموح به هو 255 حرف',
-                'category_id.required' => 'القسم مطلوب',
-            ]
         );
 
         $project_date = DB::table('projects')->where('id', $request->project_id)->first();
         $checkDate = $this->checkDate($request, $project_date); // checkdata function
         //the real task adding
         if ($checkDate == false) {
-            return response()->json(['status' => 0, "msg" => "يرجى التحقق من فترة نهاية وبداية المهمة بالنسبة لفترة المشروع"]);
+            return response()->json(['status' => 0, "msg" => "Please check start date and end date for project and task"]);
         } else {
             if ($this->insertData($request)) {
-                return response()->json(['status' => 1, "msg" => "تم إضافة المهمة بنجاح"]);
+                return response()->json(['status' => 1, "msg" => "Task Added Successfully"]);
             } else {
-                return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+                return response()->json(['status' => 0, "msg" => "Error"]);
             }
         }
     }
@@ -223,7 +211,7 @@ class TaskController extends Controller
     {
         $task = Task::where('id', $id)->first();
         if ($task == null) {
-            abort(404, 'المهمة غير موجودة');
+            abort(404, 'not found');
         }
         return view('admin.tasks.edit', compact('task'));
     }
@@ -241,19 +229,6 @@ class TaskController extends Controller
                 'project_id' => 'required',
                 'category_id' => 'required',
             ],
-            [
-                'task_name.required' => 'اسم المهمة مطلوب',
-                'start_date.required' => 'تاريخ بداية المهمة مطلوب',
-                'end_date.required' => 'تاريخ نهاية المهمة مطلوب',
-                'task_description.required' => 'وصف المهمة مطلوب',
-                'user_id.required' => 'الموظف مطلوب',
-                'project_id.required' => 'المشروع مطلوب',
-                'start_date.date' => 'تاريخ البداية يجب ان يكون تاريخ',
-                'end_date' => 'تاريخ النهاية يجب ان يكون تاريخ',
-                'task_description.min' => 'الوصف يجب ان يتكون من 6 على الأقل',
-                'task_description.max' => 'الحد المسموح به هو 255 حرف',
-                'category_id.required' => 'القسم مطلوب',
-            ]
         );
         $task_name = $request->task_name;
         $project_date = DB::table('projects')->where('id', $request->project_id)->first();
@@ -262,12 +237,12 @@ class TaskController extends Controller
         if ($checkDate) {
             //the real task adding
             if ($updateTasktData) {
-                return response()->json(['status' => 1, "msg" => "تم تعديل المهمة \"$task_name\" بنجاح"]);
+                return response()->json(['status' => 1, "msg" => "Task \"$task_name\" Updated"]);
             } else {
-                return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+                return response()->json(['status' => 0, "msg" => "Somthing went wrong"]);
             }
         } else {
-            return response()->json(['status' => 0, "msg" => "يرجى التحقق من فترة نهاية وبداية المهمة بالنسبة لفترة المشروع"]);
+            return response()->json(['status' => 0, "msg" => "Please check start date and end date for project and task"]);
         }
     }
 
@@ -290,7 +265,7 @@ class TaskController extends Controller
             $task->isDelete = 1;
             $task->save();
         }
-        return response()->json(['status' => 1, "msg" => "تم حذف المهمة \"$task->task_name\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Task \"$task->task_name\" Deleted"]);
     }
 
     public function activate($id)
@@ -298,7 +273,7 @@ class TaskController extends Controller
         $tasks = Task::where('id',$id)->first();
         $tasks->status = $tasks->status == "inProgress" ? 'completed' : 'inProgress';
         $tasks->save();
-        return response()->json(['status' => 1, "msg" => "تم إكمال المهمة بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Task Completed Successfully"]);
     }
 
     protected function checkDate($request, $project_date)

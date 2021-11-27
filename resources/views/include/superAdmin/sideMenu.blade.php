@@ -56,7 +56,7 @@
 							</svg>
 							<!--end::Svg Icon-->
 						</span>
-						<span class="menu-text">الصفحة الرئيسية</span>
+						<span class="menu-text">dashboard</span>
 					</a>
 				</li>
 				@if (Auth::check() && auth()->user()->role == 'manager')
@@ -79,7 +79,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">الأقسام</span>
+							<span class="menu-text pl-2">categories</span>
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 
@@ -104,7 +104,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">المستخدمين</span>
+							<span class="menu-text pl-2">Users</span>
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 
@@ -127,7 +127,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">المشاريع</span>
+							<span class="menu-text pl-2">Projects</span>
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 				</li>
@@ -148,7 +148,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">المهام</span>
+							<span class="menu-text pl-2">Tasks</span>
 							<i class="menu-arrow"></i>
 					</a>
 					<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">
@@ -156,7 +156,7 @@
 						<ul class="menu-subnav">
 							<li class="menu-item menu-item-parent" aria-haspopup="true">
 								<span class="menu-link">
-									<span class="menu-text">مهمة جديدة</span>
+									<span class="menu-text">New Task</span>
 								</span>
 							</li>
 							<li class="menu-item" aria-haspopup="true">
@@ -164,7 +164,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">مهمة جديدة </span>
+									<span class="menu-text">New Task </span>
 								</a>
 							</li>
 
@@ -173,7 +173,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">المهام الجارية </span>
+									<span class="menu-text">InProgress Task </span>
 								</a>
 							</li>
 
@@ -182,7 +182,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">المهام المكتملة</span>
+									<span class="menu-text">Comlpeted Task</span>
 								</a>
 							</li>
 						</ul>
@@ -206,7 +206,7 @@
 									</g>
 								</svg>
 							</span>
-							<span class="menu-text pl-2">تقارير</span>
+							<span class="menu-text pl-2">Reports</span>
 						 {{-- <i class="menu-arrow"></i>  --}}
 					</a>
 				</li> 
@@ -230,7 +230,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">الطلبات</span>
+							<span class="menu-text pl-2">Contacts</span>
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 
@@ -252,7 +252,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">الإعدادات</span>
+							<span class="menu-text pl-2">Settings</span>
 							{{-- <i class="menu-arrow"></i> --}}
 					</a>
 
@@ -276,7 +276,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">طلباتي</span>
+							<span class="menu-text pl-2">My Contacts</span>
 							<i class="menu-arrow"></i>
 					</a>
 					<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">
@@ -284,7 +284,7 @@
 						<ul class="menu-subnav">
 							<li class="menu-item menu-item-parent" aria-haspopup="true">
 								<span class="menu-link">
-									<span class="menu-text">طلب جديد</span>
+									<span class="menu-text">New Contact</span>
 								</span>
 							</li>
 							<li class="menu-item" aria-haspopup="true">
@@ -292,7 +292,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">اضافة طلب جديد </span>
+									<span class="menu-text">New Contact </span>
 								</a>
 							</li>
 
@@ -301,7 +301,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">طلباتي</span>
+									<span class="menu-text">My Contacts</span>
 								</a>
 							</li>
 						</ul>
@@ -332,7 +332,7 @@
 						<ul class="menu-subnav">
 							<li class="menu-item menu-item-parent" aria-haspopup="true">
 								<span class="menu-link">
-									<span class="menu-text">مهمة جديدة</span>
+									<span class="menu-text">New Task</span>
 								</span>
 							</li>
 
@@ -341,7 +341,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">مهماتي </span>
+									<span class="menu-text">My Tasks </span>
 								</a>
 							</li>
 
@@ -350,7 +350,7 @@
 									<i class="menu-bullet menu-bullet-dot">
 										<span></span>
 									</i>
-									<span class="menu-text">مهماتي المكتملة</span>
+									<span class="menu-text">My Comlpeted Task</span>
 								</a>
 							</li>
 						</ul>

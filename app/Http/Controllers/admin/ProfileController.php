@@ -33,17 +33,6 @@ class ProfileController extends Controller
                 'phone' => 'nullable|unique:users,phone,' . $request->user_id,
                 'password' => 'nullable|min:6'
             ],
-            [
-                'username.required' => 'المستخدم مطلوب',
-                'username.string' => 'المستخدم يجب ان يكون قيمة نصية',
-                'username.max' => 'المستخدم يجب الا يتعدي 255 حرف',
-                'username.min' => 'يجب كتابة 3 احرف على الأقل',
-                'username.unique' => 'المستخدم موجود مسبقآ',
-                'email.required' => 'الإيميل مطلوب',
-                'email.unique' => 'الإيميل مستخدم مسبقآ',
-                'phone.unique' => 'الهاتف مستخدم مسبقآ',
-                'password.min' => 'كلمة المرور : يرجى كتابة 6 احرف على الاقل'
-            ]
         );
 
         $user = User::findOrFail($request->user_id);
@@ -68,7 +57,7 @@ class ProfileController extends Controller
         if (!empty($array)) {
             $user->update($array);
         }
-        return response()->json(['status' => 1, "msg" => "تم تعديل حساب \"$user->username\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "Profile  \"$user->username\" Updated"]);
 
     }
 }

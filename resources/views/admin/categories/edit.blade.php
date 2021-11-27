@@ -4,7 +4,7 @@
             {{csrf_field()}}
             <input type="hidden" name="_method" value="put">
             <div class="form-group row">
-                <label class="col-3 col-form-label">التصنيف :</label>
+                <label class="col-3 col-form-label">Category Name :</label>
                 <div class="col-8">
                     <input class="form-control" name="name" value="{{ $category->name }}" autofocus
                         style="text-align: center" type="text" id="name" autocomplete="off">
@@ -12,10 +12,10 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-3 col-form-label">الموظفين :</label>
+                <label class="col-3 col-form-label">Users :</label>
                 <div class="col-8">
                     <select class="form-control select2" id="users" name="users[]" multiple="multiple">
-                        <option disabled>الموظفين:</option>
+                        <option disabled>Users:</option>
                         @foreach(App\Models\User::all() as $user)
                         <option value="{{ $user->id }}" @foreach($category->users as $category_users)
                             @if($category_users->id == $user->id)
@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-3 col-form-label">الإيقونة :</label>
+                <label class="col-3 col-form-label">Icon :</label>
                 <div class="col-8">
                     <input type="file" name="icon" id="icone" class="form-control file-image" id="file-image">
                     @if ($category->icon)
@@ -40,8 +40,8 @@
             </div>
 
             <div class="col-sm-8 offset-sm-4">
-                <button type="submit" data-refresh="true" class="btn green btn-primary">حفظ</button>
-                <a class="btn btn-default " data-dismiss="modal">الغاء الأمر</a>
+                <button type="submit" data-refresh="true" class="btn green btn-primary">Save</button>
+                <a class="btn btn-default " data-dismiss="modal">Cancel</a>
             </div>
     </div>
 

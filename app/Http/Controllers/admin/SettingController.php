@@ -70,7 +70,7 @@ class SettingController extends Controller
         if (!empty($array)) {
             $setting->update($array);
         }
-        return response()->json(['status' => 1, 'msg' => 'تم التحديث بنجاح', 'data' => $array]);
+        return response()->json(['status' => 1, 'msg' => 'Setting Updated', 'data' => $array]);
     }
 
 }

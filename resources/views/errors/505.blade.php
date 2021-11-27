@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="panel panel-danger">
-    <div class="panel-heading">عذرا لا تملك صلاحية على الرابط</div>
+    <div class="panel-heading">Sorry , You Dont have Permession on this link</div>
 
     <div class="panel-body">
-        عزيزي المستخدم لا تملك صلاحية على الرابط المطلوب الرجاء مراجعة مسؤل النظام ..
+        Dear user You Dont have Permession , please call the adminstraion 
     </div>
 </div>
 @endsection
 
 
 @section("title")
-لا يوجد صلاحية
+No Permession
 @endsection()

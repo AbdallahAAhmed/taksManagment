@@ -1,8 +1,8 @@
 @if (is_null($contacts->message))
-لا توجد رسالة
+No Message
 @else
-<button data-toggle="modal" data-target="#contact_{{$contacts->id}}" class="btn btn-info btn-sm" id="notbtn">عرض
-    الرسالة
+<button data-toggle="modal" data-target="#contact_{{$contacts->id}}" class="btn btn-info btn-sm" id="notbtn">
+    Show Message
 </button>
 @endif
 
@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">عرض الرسالة</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Show Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,7 +20,7 @@
                 <p>{{Str::limit($contacts->message,70)}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

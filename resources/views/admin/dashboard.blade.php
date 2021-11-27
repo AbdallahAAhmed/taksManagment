@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-لوحة التحكم
+dashboard
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> لوحة التحكم </a>
+        <a href="" class="text-muted">dashboard </a>
     </li>
 </ul>
 @endsection
@@ -18,7 +18,7 @@
     <!--begin::Info-->
     <div class="d-flex align-items-center flex-wrap mr-2">
         <!--begin::Page Title-->
-        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">لوحة التحكم</h5>
+        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">dashboard</h5>
         <!--end::Page Title-->
         <!--begin::Actions-->
         <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
@@ -98,7 +98,7 @@
                                         <!--end::Svg Icon--></span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">أخر المشاريع</div>
+                            <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">latest Project</div>
                             <div class="font-weight-bold text-inverse-dark font-size-sm">
                                 {{ App\Models\Project::count() }}
                             </div>
@@ -131,7 +131,7 @@
                                 <!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->
                             </span>
-                            <div class="text-inverse-white font-weight-bolder font-size-h5 mb-2 mt-5">اخر التصنيفات
+                            <div class="text-inverse-white font-weight-bolder font-size-h5 mb-2 mt-5">latest Categories
                             </div>
                             <div class="font-weight-bold text-inverse-white font-size-sm">
                                 {{ App\Models\Category::count() }}
@@ -167,7 +167,7 @@
                                     <!--end::Svg Icon--></span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <div class="text-inverse-info font-weight-bolder font-size-h5 mb-2 mt-5">اخر المستخدمين
+                            <div class="text-inverse-info font-weight-bolder font-size-h5 mb-2 mt-5">latest Users
                             </div>
                             <div class="font-weight-bold text-inverse-info font-size-sm">
                                 {{ App\Models\User::count() }}

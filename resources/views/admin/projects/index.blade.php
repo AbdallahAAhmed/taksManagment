@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-جميع المشاريع
+Projects
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> المشاريع </a>
+        <a href="" class="text-muted"> Projects </a>
     </li>
 </ul>
 @endsection
@@ -25,13 +25,13 @@
                     <span class="card-icon">
                         <i class="flaticon2-supermarket text-primary"></i>
                     </span>
-                    <h3 class="card-label">المشاريع</h3>
+                    <h3 class="card-label">Projects</h3>
                 </div>
                 <div class="card-toolbar">
 
 
                     <a href="{{ route('projects.create') }}" class="btn btn-primary font-weight-bolder Popup"
-                        title="إضافة مشروع">
+                        title="Add Project">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -45,7 +45,7 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>إضافة مشروع </a>
+                        </span>Add Project </a>
 
                 </div>
             </div>
@@ -60,12 +60,12 @@
                                     <thead>
                                         <tr>
                                             <th width="1%">#</th>
-                                            <th width="3%">المشروع</th>
-                                            <th width="3%">المستخدم</th>
-                                            <th width="3%">تاريخ البدء</th>
-                                            <th width="3%">تاريخ النهاية</th>
-                                            <th width="3%">تاريخ الإضافة</th>
-                                            <th width="3%">إجراءات</th>
+                                            <th width="3%">Project Name</th>
+                                            <th width="3%">User</th>
+                                            <th width="3%">Start Date</th>
+                                            <th width="3%">End Date</th>
+                                            <th width="3%">Created Date</th>
+                                            <th width="3%">Actions</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -98,26 +98,6 @@
     //هذه تختلف حسب الصفحة
     function BindDataTable() {
         oTable = $('#tblAjax').DataTable({
-            "language": {
-            
-            emptyTable:"لا يوجد بيانات لعرضها",
-            "sProcessing": "جارٍ التحميل...",
-            "sLengthMenu": "أظهر _MENU_ مدخلات",
-            "sZeroRecords": "لم يعثر على أية سجلات",
-            "sInfo": "إظهار _START_ إلى _END_ ",
-            "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-            "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-            "sInfoPostFix": "",
-            "sSearch": "بحث:",
-            'selectedRow': 'مجمل المحدد',
-            "sUrl": "",
-            "oPaginate": {
-            "sFirst": "الأول",
-            "sPrevious": "السابق",
-            "sNext": "التالي",
-            "sLast": "الأخير",
-            }
-            },
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
 
@@ -146,21 +126,21 @@
 			// <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
             
            dom: 'lBfrtip',
-                buttons: [
+              buttons: [
 
                 { extend: 'print',
-                    text: 'طباعة الكل',
+                    text: 'Print All',
                     customize: function (win) {
-                    $(win.document.body).css('direction', 'rtl');
+                    $(win.document.body).css('direction', 'ltr');
                     },
                     exportOptions: {
                     columns: ':visible' }},
 
                    { extend: 'colvis',
-                    text: ' تحديد الأعمدة'},
+                    text: ' Select Columns'},
                    
                     {extend: 'excelHtml5',
-                    text: 'طباعة أكسل',
+                    text: 'Print Excel',
                     exportOptions: {
                     columns: ':visible', }},
                     ],

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Category;
+use App\Models\category_users;
 use App\Models\Project;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,19 +39,6 @@ class UserController extends Controller
                 'role' => 'required|in:manager,employee',
                 'password' => 'required|confirmed|string|max:255|min:6',
             ],
-            [
-                'username.required' => 'المستخدم مطلوب',
-                'username.string' => 'المستخدم يجب ان يكون قيمة نصية',
-                'username.max' => 'المستخدم يجب الا يتعدي 255 حرف',
-                'username.min' => 'يجب كتابة 3 احرف على الأقل',
-                'username.unique' => 'المستخدم موجود مسبقآ',
-                'email.required' => 'الإيميل مطلوب',
-                'email.unique' => 'الإيميل مستخدم مسبقآ',
-                'phone.unique' => 'الهاتف مستخدم مسبقآ',
-                'password.required' => 'كلمة المرور مطلوبة',
-                'password.confirmed' => 'كلمة المرور غير متطابقة',
-                'password.min' => 'يجب كتابة 6 احرف على الأقل',
-            ]
         );
 
         date_default_timezone_set('Asia/Hebron');
@@ -69,7 +56,7 @@ class UserController extends Controller
             'role' => $user_role,
             'password' => $user_password,
         ]);
-        return response()->json(['status' => 1, "msg" => "تم إضافة المستخدم \"$username\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "User \"$username\" Added Succesfully"]);
     }
 
     public function AjaxDT(Request $request)
@@ -84,7 +71,7 @@ class UserController extends Controller
 
             return  DataTables::of($users)
                 ->addColumn('actions', function ($users) {
-                    return '<a href="/dashboard/users/edit/' . $users->id . '" class="Popup" data-toggle="modal"  data-id="' . $users->id . '"title="تعديل المستخدم"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
+                    return '<a href="/dashboard/users/edit/' . $users->id . '" class="Popup" data-toggle="modal"  data-id="' . $users->id . '"title="edit user"><i class="la la-edit icon-xl" style="color:blue;padding:4px"></i></a>
                             <a href="/dashboard/users/delete/' . $users->id . '" data-id="' . $users->id . '" class="ConfirmLink "' . ' id="' . $users->id . '"><i class="fa fa-trash-alt icon-md" style="color:red"></i></a>';
                 })->rawColumns(['actions'])->make(true);
         }
@@ -101,7 +88,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
         if ($user == null) {
-            abort(404, 'المستخدم غير موجود');
+            abort(404, 'User not found');
         }
         return view('admin.users.edit', compact('user'));
     }
@@ -117,16 +104,6 @@ class UserController extends Controller
                 'role' => 'required|in:manager,employee',
 
             ],
-            [
-                'username.required' => 'المستخدم مطلوب',
-                'username.string' => 'المستخدم يجب ان يكون قيمة نصية',
-                'username.max' => 'المستخدم يجب الا يتعدي 255 حرف',
-                'username.min' => 'يجب كتابة 3 احرف على الأقل',
-                'username.unique' => 'المستخدم موجود مسبقآ',
-                'email.required' => 'الإيميل مطلوب',
-                'email.unique' => 'الإيميل مستخدم مسبقآ',
-                'phone.unique' => 'الهاتف مستخدم مسبقآ',
-            ]
         );
 
         $user = User::where('id', $id)->first();
@@ -158,25 +135,25 @@ class UserController extends Controller
         if (!empty($array)) {
             $user->update($array);
         }
-        return response()->json(['status' => 1, "msg" => "تم تعديل المستخدم \"$username\" بنجاح"]);
+        return response()->json(['status' => 1, "msg" => "User \"$username\" Updated Succesfully"]);
     }
 
     public function delete($id)
     {
         $user = User::where('id', $id)->first();
-        $category = Category::where('user_id', '=', $id)->first();
+        $category = category_users::where('user_id', '=', $id)->first();
         $project = Project::where('user_id', '=', $id)->first();
-
+          
         if ($category != null) {
-            return response()->json(['status' => 2, "msg" => "لا يمكن الحذف لان المستخدم مرتبط ب قسم"]);
+            return response()->json(['status' => 2, "msg" => "Can't delete user releted with category"]);
         } elseif (auth()->user()->id == $id) {
-            return response()->json(['status' => 2, "msg" => "لا يمكن حذف المستخدم المسجل للدخول"]);
+            return response()->json(['status' => 2, "msg" => "Can't delete authenticated User"]);
         } elseif ($project != null) {
-            return response()->json(['status' => 2, "msg" => "لا يمكن حذف المستخدم لارتباطه ب مشروع"]);
+            return response()->json(['status' => 2, "msg" => "Can't delete user releted with Project"]);
         } else {
             $user->delete();
-            return response()->json(['status' => 1, "msg" => "تم حذف المستخدم \"$user->username\" بنجاح"]);
+            return response()->json(['status' => 1, "msg" => "User \"$user->username\" Deleted Successfully"]);
         }
-        return response()->json(['status' => 0, "msg" => "حدث خطأ ما"]);
+        return response()->json(['status' => 0, "msg" => "Somthing went wrong"]);
     }
 }

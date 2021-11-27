@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 
-<html direction="rtl" dir="rtl" style="direction: rtl">
+<html direction="ltr" dir="ltr" style="direction: ltr">
 <!--begin::Head-->
 
 @include('include.superAdmin.head')
 <!--begin::Body-->
 
-<body  id="kt_body" dir="rtl" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+<body  id="kt_body" dir="ltr" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 	<!--begin::Main-->
 	<!--begin::Header Mobile-->
 	<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">

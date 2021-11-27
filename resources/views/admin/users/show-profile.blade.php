@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-بيانات الحساب الشخصي
+My Account
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> بيانات الحساب الشخصي </a>
+        <a href="" class="text-muted"> My Account </a>
     </li>
 </ul>
 @endsection
@@ -23,9 +23,9 @@
                 <!--begin::Header-->
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
-                        <h3 class="card-label font-weight-bolder text-dark"> المعلومات الشخصية |
+                        <h3 class="card-label font-weight-bolder text-dark"> Personal Information |
                             {{ $profile->name }}</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">تعديل المعلومات الشخصية</span>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">Edit Information</span>
                     </div>
 
                 </div>
@@ -37,19 +37,19 @@
                         <div class="row">
                             <label class="col-xl-3"></label>
                             <div class="col-lg-9 col-xl-6">
-                                <h5 class="font-weight-bold mb-6">معلومات شخصية</h5>
+                                <h5 class="font-weight-bold mb-6">Personal Information</h5>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">الإسم</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Name</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" id="username"
-                                    placeholder="الإسم" type="text" name="username" value="{{ $profile->username }}">
+                                    placeholder="Name" type="text" name="username" value="{{ $profile->username }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">البريد الإلكتروني</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">E-Mail</label>
                             <div class="col-lg-9 col-xl-6">
                                 <div class="input-group input-group-lg input-group-solid">
                                     <div class="input-group-prepend">
@@ -59,14 +59,14 @@
                                     </div>
                                     <input type="text" name="email" id="email"
                                         class="form-control form-control-lg form-control-solid"
-                                        value="{{ $profile->email }}" placeholder="البريد">
+                                        value="{{ $profile->email }}" placeholder="E-Mail">
                                 </div>
                                 <input type="hidden" name="user_id" id="user_id" value="{{ $profile->id }}">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">الهاتف</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Phone</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" id="phone" placeholder="الهاتف" type="text"
                                     name="phone" value="{{ $profile->phone }}">
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">كلمة المرور</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Password</label>
                             <div class="col-lg-9 col-xl-6">
                                 <div class="input-group input-group-lg input-group-solid">
                                     <div class="input-group-prepend">
@@ -83,12 +83,12 @@
                                     </div>
                                     <input type="password" name="password" id="password"
                                         class="form-control form-control-lg form-control-solid"
-                                        placeholder="كلمة المرور">
+                                        placeholder="Password">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label text-right">تأكيد كلمة المرور</label>
+                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Password Confirmation</label>
                             <div class="col-lg-9 col-xl-6">
                                 <div class="input-group input-group-lg input-group-solid">
                                     <div class="input-group-prepend">
@@ -97,15 +97,15 @@
                                     </div>
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                         class="form-control form-control-lg form-control-solid"
-                                        placeholder="تأكيد كلمة المرور">
+                                        placeholder="Password Confirmation">
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="card-toolbar" style="text-align: left">
-                            <button type="submit" data-refresh="true" class="btn green btn-primary">حفظ</button> <button
-                                type="reset" class="btn btn-secondary">إلغاء</button>
+                        <div class="card-toolbar" style="text-align: right">
+                            <button type="submit" data-refresh="true" class="btn green btn-primary">Save</button> <button
+                                type="reset" class="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                     <!--end::Body-->
@@ -125,7 +125,7 @@
     $(".ajaxForm :submit").prop("disabled", false);
     if (json.status == 1) {
     // $('.ajaxForm').resetForm();
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     $('#password').val('');
     $('#password_confirmation').val('');
     if (json.redirect != null)
@@ -137,7 +137,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -156,7 +156,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
     

@@ -3,7 +3,7 @@
 <head>
 	<base href="">
 	<meta charset="utf-8" />
-	<title>إدارة المهام - @yield("page_title")</title>
+	<title>TMS - @yield("page_title")</title>
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	<link href="/assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
@@ -16,10 +16,10 @@
 	<link href="/assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<!-- end select2 -->
-	<link href="/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
-	<link href="/assets/plugins/custom/prismjs/prismjs.bundle.rtl.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
 
-	<link href="/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/nprogress-master/nprogress.css" rel="stylesheet" type="text/css" />
 	<link href="/fonts/cairo/cairo.css" rel="stylesheet" type="text/css">
 <link href="{{ asset('backend_assets/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
@@ -44,7 +44,7 @@
 			padding-right: 5px !important;
 		}
 		.select2-selection__rendered{
-			padding-top: 4px !important;
+			padding-top: 1px !important;
 		}
 	</style>
 
@@ -56,7 +56,8 @@
 <style>
 	body {
 
-		direction: rtl;
+		direction: ltr;
+		font-family: 'Cairo', sans-serif;
 	}
 
 	.btn-group-xs>.btn,

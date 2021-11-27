@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-مهماتي التي أنجزت
+My Comlpeted Tasks
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ route('MyTask') }}" class="text-muted"> مهماتي </a>
+        <a href="{{ route('MyTask') }}" class="text-muted"> My Tasks </a>
     </li>
 </ul>
 @endsection
@@ -25,11 +25,11 @@
                     <span class="card-icon">
                         <i class="flaticon2-supermarket text-primary"></i>
                     </span>
-                    <h3 class="card-label">مهماتي المنجزة</h3>
+                    <h3 class="card-label">My Comlpeted Tasks</h3>
                 </div>
                 <div class="card-toolbar">
 
-                    <a href="{{ route('MyTask') }}" class="btn btn-primary font-weight-bolder" title="رجوع">
+                    <a href="{{ route('MyTask') }}" class="btn btn-primary font-weight-bolder" title="Back">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -43,7 +43,7 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>رجوع </a>
+                        </span>Back </a>
                 </div>
             </div>
 
@@ -55,16 +55,17 @@
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap table-bordered">
                                     <thead>
-                                        <tr>
+                                     <tr>
                                             <th width="1%">#</th>
-                                            <th width="1%">عنوان المهمة</th>
-                                            <th width="3%">تاريخ البداية</th>
-                                            <th width="3%">تاريخ النهاية</th>
-                                            <th width="3%">القسم</th>
-                                            <th width="3%">المشروع</th>
-                                            <th width="3%">وصف عام</th>
-                                            <th width="3%">الحالة</th>
+                                            <th width="1%">Task Title</th>
+                                            <th width="3%">Start date</th>
+                                            <th width="3%">End Date</th>
+                                            <th width="3%">Category</th>
+                                            <th width="3%">Project</th>
+                                            <th width="3%">Task Description</th>
+                                            <th width="3%">Status</th>
                                         </tr>
+
                                     </thead>
                                     <tbody>
                                         @if ($tasks->count() > 0)
@@ -79,7 +80,7 @@
                                             <td>{!! Str::limit($task->task_description,50) !!}</td>
                                             <td>@if ($task->status == 'completed')
                                                 <span class="badge badge-success">
-                                                   مكتملة
+                                                   Comlpeted
                                                 </span>
                                                 @endif
                                             </td>
@@ -88,7 +89,7 @@
                                         @else
                                         <tr class="text-center">
                                             <td colspan="10">
-                                                <p class="mt-2">لا توجد معلومات </p>
+                                                <p class="mt-2">No Data </p>
                                             </td>
                                         </tr>
                                         @endif

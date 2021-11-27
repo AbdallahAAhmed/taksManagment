@@ -1,15 +1,15 @@
 @extends("layouts.superAdmin")
 @section('page_title')
-تعديل إعدادات النظام
+Edit System Settings
 @endsection
 @section('breadcrumb')
 
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-md">
     <li class="breadcrumb-item">
-        <a href="/" class="text-muted">الرئيسية</a>
+        <a href="/" class="text-muted">Home Page</a>
     </li>
     <li class="breadcrumb-item">
-        <a href="" class="text-muted"> تعديل إعدادات النظام </a>
+        <a href="" class="text-muted"> Edit System Settings </a>
     </li>
 </ul>
 @endsection
@@ -20,8 +20,8 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-label">الإعدادات
-                        <span class="d-block text-muted pt-2 font-size-sm">تعديل الإعدادات &amp; الإعدادات</span>
+                    <h3 class="card-label">Setting
+                        <span class="d-block text-muted pt-2 font-size-sm">Edit Setting &amp; Setting</span>
                     </h3>
                 </div>
 
@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>العنوان :</label>
+                                    <label>Title :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="title" type="text" id="title" class="form-control"
                                             value="{{ $setting->title }}" placeholder="" />
@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>العنوان الفرعي :</label>
+                                    <label>SubTitle :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="sub_title" type="text" id="sub_title" class="form-control"
                                             value="{{ $setting->sub_title }}" placeholder="" />
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>رقم التواصل :</label>
+                                    <label>Phone :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="contact_number" value="{{ $setting->contact_number }}" type="text"
                                             id="contact_number" class="form-control" placeholder="" />
@@ -65,7 +65,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>البريد الإلكتروني :</label>
+                                    <label>E-Mail :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="email" value="{{ $setting->email }}" type="email" id="email"
                                             class="form-control" placeholder="" />
@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>الأنستقرام :</label>
+                                    <label>instagram :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="instagram_url" type="text" value="{{ $setting->instagram_url }}"
                                             id="instagram_url" class="form-control" placeholder="" />
@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>التويتر :</label>
+                                    <label>twitter :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="twitter_url" type="text" value="{{ $setting->twitter_url }}"
                                             id="twitter_url" class="form-control" placeholder="" />
@@ -98,7 +98,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>الفيسبوك :</label>
+                                    <label>facebook :</label>
                                     <div class="input-icon input-icon-right">
                                         <input name="facebook_url" type="text" value="{{ $setting->facebook_url }}"
                                             id="facebook_url" class="form-control" placeholder="" />
@@ -115,8 +115,8 @@
                     </div>
                     </div>
                     <div class="card-toolbar" style="text-align: left">
-                        <button type="submit" data-refresh="true" class="btn green btn-primary">تعديل</button>
-                        <button type="reset" class="btn btn-secondary">إلغاء</button>
+                        <button type="submit" data-refresh="true" class="btn green btn-primary">Update</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
                     </div>
                 </form>
                 <!--end::Form-->
@@ -134,7 +134,7 @@
     $(".ajaxForm :submit").prop("disabled", false);
     if (json.status == 1) {
     $('.ajaxForm').resetForm();
-    ShowMessage(json.msg, "success", "ادارة المهام");
+    ShowMessage(json.msg, "success", "TMS");
     if (json.redirect != null)
     setTimeout(function() {
     window.location = json.redirect
@@ -144,7 +144,7 @@
     // $('.ajaxForm').resetForm();
     }
     } else {
-    ShowMessage(json.msg, "error", "ادارة المهام");
+    ShowMessage(json.msg, "error", "TMS");
     }
     if (json.redirect != null)
     setTimeout(function() {
@@ -163,7 +163,7 @@
         errorsHtml += '<li>' + value[0] + '</li>';
         });
         errorsHtml += "</ul>";
-    ShowMessage(errorsHtml, "error", "ادارة المهام");
+    ShowMessage(errorsHtml, "error", "TMS");
     }
     });
     
