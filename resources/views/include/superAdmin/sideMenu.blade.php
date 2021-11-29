@@ -276,7 +276,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">My Contacts</span>
+							<span class="menu-text pl-2">Contacts</span>
 							<i class="menu-arrow"></i>
 					</a>
 					<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">
@@ -324,7 +324,7 @@
 								</svg>
 								<!--end::Svg Icon-->
 							</span>
-							<span class="menu-text pl-2">المهام</span>
+							<span class="menu-text pl-2">tasks</span>
 							<i class="menu-arrow"></i>
 					</a>
 					<div class="menu-submenu" kt-hidden-height="80" style="display: none; overflow: hidden;">

@@ -28,7 +28,7 @@
 				<!--begin::Title-->
 				<h4 class="d-flex flex-center rounded-top">
 					<span class="text-white">You have UnCompleted Tasks</span>
-					<span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">{{$myTasks->count()}} جديدة</span>
+					<span class="btn btn-text btn-success btn-sm font-weight-bold btn-font-md ml-2">{{$myTasks->count()}} New</span>
 				</h4>
 				<!--end::Title-->
 				<!--begin::Tabs-->
